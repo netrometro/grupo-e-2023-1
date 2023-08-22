@@ -3,30 +3,23 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-import { FastifyRequest, FastifyReply } from 'fastify';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
-
-interface CriarLojaRequest extends FastifyRequest {
-  Body: {
-    nome: string;
-    endereco: string;
-    contato: string;
-    fornecedorId: number; // Adicione isso ao seu tipo
-  };
+interface Loja {
+  nome: string;
+  endereco: string;
+  contato: string;
+  fornecedorId: number;
 }
 
-export const criarLoja = async (request: CriarLojaRequest, reply: FastifyReply) => {
+export const criarLoja = async (request: FastifyRequest, reply: FastifyReply) => {
   try {
-    const { nome, endereco, contato, fornecedorId } = request.body;
+    const { nome, endereco, contato, fornecedorId } = request.body as Loja;
     const loja = await prisma.loja.create({
       data: {
         nome,
         endereco,
         contato,
         fornecedor: {
-          connect: { id: fornecedorId } // Conecte a loja ao fornecedor
+          connect: { id: fornecedorId }
         },
       },
     });
