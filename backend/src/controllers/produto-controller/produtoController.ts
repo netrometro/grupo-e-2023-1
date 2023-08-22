@@ -56,4 +56,20 @@ export const editarProduto = async (request: FastifyRequest, reply: FastifyReply
       reply.status(500).send('Erro ao editar produto.');
     }
   };
+
+  export const deletarProduto = async (request: FastifyRequest<{ Params: { id: string } }>, reply: FastifyReply) => {
+    try {
+      const id = Number(request.params.id);
+  
+      await prisma.produto.delete({
+        where: { id },
+      });
+  
+      reply.send('Produto deletado com sucesso.');
+    } catch (error) {
+      console.error(error);
+      reply.status(500).send('Erro ao deletar produto.');
+    }
+  };
+  
   
