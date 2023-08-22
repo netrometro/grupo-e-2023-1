@@ -94,3 +94,14 @@ export const listarPostagensDoFaxineiro = async (req: FastifyRequest, res: Fasti
     res.status(500).send({ error: 'Erro ao listar postagens do faxineiro' });
   }
 };
+
+export const listarTodasAsPostagens = async (_req: FastifyRequest, res: FastifyReply) => {
+  try {
+    const todasAsPostagens = await prisma.postagem.findMany();
+
+    res.send(todasAsPostagens);
+  } catch (error) {
+    console.error('Erro ao listar todas as postagens:', error);
+    res.status(500).send({ error: 'Erro ao listar todas as postagens' });
+  }
+};
