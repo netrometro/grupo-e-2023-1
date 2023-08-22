@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 
 export const criarPostagem = async (req: FastifyRequest, res: FastifyReply) => {
   const body = req.body as Postagem;
-  const { titulo, descricao, preco, horarios, faxineiroId } = body; // Certifique-se de ter o faxineiroId no corpo da requisição
+  const { titulo, descricao, preco, horarios, faxineiroId } = body;
 
   try {
     const postagem = await prisma.postagem.create({
