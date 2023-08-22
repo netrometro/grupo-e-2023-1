@@ -73,3 +73,24 @@ export const deletarPostagem = async (req: FastifyRequest, res: FastifyReply) =>
     res.status(500).send({ error: 'Erro ao deletar postagem' });
   }
 };
+
+export const listarPostagensDoFaxineiro = async (req: FastifyRequest, res: FastifyReply) => {
+  const faxineiroId = parseInt((req as any).params['faxineiroId'], 10);
+  console.log('Faxineiro ID:', faxineiroId); // Adicione um log para verificar o ID capturado
+
+
+  try {
+    const postagens = await prisma.postagem.findMany({
+      where: {
+        faxineiroId: {
+          equals: faxineiroId
+        }
+      }
+    });
+
+    res.send(postagens);
+  } catch (error) {
+    console.error('Erro ao listar postagens do faxineiro:', error);
+    res.status(500).send({ error: 'Erro ao listar postagens do faxineiro' });
+  }
+};

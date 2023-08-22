@@ -1,6 +1,6 @@
 // app.ts
 import fastify from 'fastify';
-import { criarPostagem, editarPostagem, deletarPostagem } from './controllers/faxineiro-controller/postagemController';
+import { criarPostagem, editarPostagem, deletarPostagem, listarPostagensDoFaxineiro } from './controllers/faxineiro-controller/postagemController';
 import { criarFaxineiro } from './controllers/faxineiro-controller/faxineiroController';
 
 const app = fastify();
@@ -9,6 +9,7 @@ app.post('/faxineiros/:faxineiroId/postagens', {}, criarPostagem);
 app.post('/faxineiros', {}, criarFaxineiro);
 app.put('/postagem/:postagemId', editarPostagem);
 app.delete('/postagem/:postagemId', deletarPostagem);
+app.get('/faxineiro/:faxineiroId/postagens', listarPostagensDoFaxineiro);
 
 
 
