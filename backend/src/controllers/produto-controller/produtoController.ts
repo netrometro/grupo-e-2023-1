@@ -30,3 +30,30 @@ export const cadastrarProduto = async (request: FastifyRequest, reply: FastifyRe
   }
 };
 
+interface EditarProdutoRequest {
+    id: number,
+    nome: string,
+    descricao: string,
+    preco: number
+}
+
+export const editarProduto = async (request: FastifyRequest, reply: FastifyReply) => {
+    try {
+      const { id, nome, descricao, preco } = request.body as EditarProdutoRequest;
+  
+      const produto = await prisma.produto.update({
+        where: { id },
+        data: {
+          nome,
+          descricao,
+          preco,
+        },
+      });
+  
+      reply.send(produto);
+    } catch (error) {
+      console.error(error);
+      reply.status(500).send('Erro ao editar produto.');
+    }
+  };
+  
