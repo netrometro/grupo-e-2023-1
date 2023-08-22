@@ -10,12 +10,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Fornecedor {
+  id       Int      @id @default(autoincrement())
+  nome     String
+  email    String   @unique
+  lojas    Loja[]
+}
+
 model Loja {
   id       Int      @id @default(autoincrement())
   nome     String
   endereco String
   contato  String
-  produtos Produto[]
+  fornecedorId Int?
+  fornecedor   Fornecedor? @relation(fields: [fornecedorId], references: [id])
+  produtos   Produto[]
 }
 
 model Produto {
