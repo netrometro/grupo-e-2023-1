@@ -1,6 +1,6 @@
 // app.ts
 import fastify from 'fastify';
-import { criarPostagem, editarPostagem, deletarPostagem, listarPostagensDoFaxineiro, listarTodasAsPostagens } from './controllers/faxineiro-controller/postagemController';
+import { criarPostagem, editarPostagem, deletarPostagem, listarPostagensDoFaxineiro, listarTodasAsPostagens } from './controllers/postagem-controller/postagemController';
 import { criarFaxineiro } from './controllers/faxineiro-controller/faxineiroController';
 
 const app = fastify();
