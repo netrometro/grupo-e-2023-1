@@ -56,3 +56,20 @@ export const editarPostagem = async (req: FastifyRequest, res: FastifyReply) => 
     res.status(500).send({ error: 'Erro ao atualizar postagem' });
   }
 };
+
+export const deletarPostagem = async (req: FastifyRequest, res: FastifyReply) => {
+  const postagemId = parseInt((req as any).params['postagemId'], 10);
+
+  try {
+    const postagem = await prisma.postagem.delete({
+      where: { id: postagemId },
+    });
+
+    console.log('Postagem Deletada:', postagem);
+
+    res.send({ message: 'Postagem deletada com sucesso' });
+  } catch (error) {
+    console.error('Erro ao deletar postagem:', error);
+    res.status(500).send({ error: 'Erro ao deletar postagem' });
+  }
+};
