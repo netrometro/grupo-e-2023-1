@@ -1,12 +1,16 @@
 import fastify from 'fastify';
-import lojaRoutes from './src/routes/lojaRoutes';
+//import loginRoutes from './routes/loginRoutes';
+import fornecedorRoutes from './routes/fornecedorRoutes';
+import lojaRoutes from './routes/lojaRoutes';
+import produtoRoutes from './routes/produtoRoutes';
 
 const app = fastify();
-
-app.register(lojaRoutes, { prefix: '/api/lojas' });
+//app.register(loginRoutes);
+app.register(fornecedorRoutes);
+app.register(lojaRoutes);
+app.register(produtoRoutes);
 
 const PORT = process.env.PORT || 3000;
-
 app.listen(PORT, (err, address) => {
   if (err) {
     console.error(err);

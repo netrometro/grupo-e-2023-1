@@ -1,8 +1,9 @@
 import { FastifyInstance } from 'fastify';
-import { criarLoja } from '../controllers/lojaController';
-import { criarLojaSchema } from '../controllers/validations/zodSchemas';
+import { criarLoja, listarLojas } from '../controllers/loja-controller/lojaController';
 
 export default function (fastify: FastifyInstance, opts: any, done: () => void) {
-  fastify.post('/criar-loja', { schema: criarLojaSchema }, criarLoja);
+  fastify.post('/criar-loja', criarLoja);
+  fastify.get('/listar-lojas', {}, listarLojas);
+
   done();
 }

@@ -3,6 +3,17 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+
+export const listarProdutos = async (_request: FastifyRequest, reply: FastifyReply) => {
+    try {
+      const produtos = await prisma.produto.findMany();
+      reply.send(produtos);
+    } catch (error) {
+      console.error(error);
+      reply.status(500).send('Erro ao listar produtos.');
+    }
+  };
+
 interface CadastrarProdutoRequest {
     nome: string,
     descricao: string,
@@ -38,18 +49,24 @@ interface EditarProdutoRequest {
 }
 
 export const editarProduto = async (request: FastifyRequest, reply: FastifyReply) => {
+
+    const produtoId = parseInt((request as any).params['id'], 10);
     try {
-      const { id, nome, descricao, preco } = request.body as EditarProdutoRequest;
-  
+      const { nome, descricao, preco } = request.body as EditarProdutoRequest;
+
+      console.log('ID do produto:', produtoId);
+
       const produto = await prisma.produto.update({
-        where: { id },
+        where: { id: produtoId },
         data: {
           nome,
           descricao,
           preco,
         },
       });
-  
+
+      console.log('Produto Editado:', produto); // Verifique se o produto editado é exibido corretamente no console
+
       reply.send(produto);
     } catch (error) {
       console.error(error);
@@ -71,5 +88,6 @@ export const editarProduto = async (request: FastifyRequest, reply: FastifyReply
       reply.status(500).send('Erro ao deletar produto.');
     }
   };
+
   
   

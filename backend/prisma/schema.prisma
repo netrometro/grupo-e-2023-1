@@ -15,6 +15,7 @@ model Fornecedor {
   nome     String
   email    String   @unique
   lojas    Loja[]
+  senha    String
 }
 
 model Loja {
