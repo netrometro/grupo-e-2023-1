@@ -1,11 +1,11 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { PrismaClient } from '@prisma/client';
-import { Faxineiro } from '../../types'; // Importe o tipo Faxineiro
+import { Faxineiro } from '../../types';
 
 const prisma = new PrismaClient();
 
 export const criarFaxineiro = async (req: FastifyRequest, res: FastifyReply) => {
-  const { email, nome, telefone } = req.body as Faxineiro; // Use o tipo Faxineiro
+  const { email, nome, telefone } = req.body as Faxineiro;
 
   try {
     const faxineiro = await prisma.faxineiro.create({

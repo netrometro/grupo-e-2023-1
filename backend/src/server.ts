@@ -1,4 +1,3 @@
-// app.ts
 import fastify from 'fastify';
 import { criarPostagem, editarPostagem, deletarPostagem, listarPostagensDoFaxineiro, listarTodasAsPostagens } from './controllers/postagem-controller/postagemController';
 import { criarFaxineiro } from './controllers/faxineiro-controller/faxineiroController';

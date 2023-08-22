@@ -1,4 +1,3 @@
-// types.ts
 export interface Faxineiro {
     id?: number;
     email: string;

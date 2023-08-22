@@ -1,4 +1,3 @@
-// postagemController.ts
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { PrismaClient } from '@prisma/client';
 import { Postagem } from '../../types';
@@ -76,7 +75,7 @@ export const deletarPostagem = async (req: FastifyRequest, res: FastifyReply) =>
 
 export const listarPostagensDoFaxineiro = async (req: FastifyRequest, res: FastifyReply) => {
   const faxineiroId = parseInt((req as any).params['faxineiroId'], 10);
-  console.log('Faxineiro ID:', faxineiroId); // Adicione um log para verificar o ID capturado
+  console.log('Faxineiro ID:', faxineiroId); 
 
 
   try {
