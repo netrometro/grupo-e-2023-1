@@ -1,11 +1,32 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = "file:./sqlite.db"
+}
+
+model Faxineiro {
+  id              Int        @id @default(autoincrement())
+  nome            String
+  email           String     @unique
+  senha           String
+  telefone        String?
+  experiencia     String?
+  disponibilidade String?
+  area_atuacao    String?
+  created_at      DateTime   @default(now())
+  updated_at      DateTime   @updatedAt
+  postagens       Postagem[]
+}
+
+model Postagem {
+  id          Int       @id @default(autoincrement())
+  titulo      String
+  descricao   String
+  preco       Float
+  horarios    String // Armazenando horários como uma única string
+  faxineiro   Faxineiro @relation(fields: [faxineiroId], references: [id])
+  faxineiroId Int
 }
