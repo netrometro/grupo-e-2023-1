@@ -21,9 +21,19 @@
   "dependencies": {
     "@fastify/cors": "^8.3.0",
     "@prisma/client": "^5.1.1",
+<<<<<<< HEAD
+=======
+    "@types/bcrypt": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.2",
+>>>>>>> 9697243c2f0eb375d3eebddb08355368732973eb
     "axios": "^1.4.0",
+    "bcrypt": "^5.1.1",
     "fastify": "^4.21.0",
+<<<<<<< HEAD
     "sqlite3": "^5.1.6",
+=======
+    "jsonwebtoken": "^9.0.1",
+>>>>>>> 9697243c2f0eb375d3eebddb08355368732973eb
     "zod": "^3.22.1"
   }
 }

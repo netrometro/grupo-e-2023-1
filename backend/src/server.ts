@@ -1,16 +1,18 @@
 import fastify from 'fastify';
-import { criarPostagem, editarPostagem, deletarPostagem, listarPostagensDoFaxineiro, listarTodasAsPostagens } from './controllers/postagem-controller/postagemController';
-import { criarFaxineiro } from './controllers/faxineiro-controller/faxineiroController';
+//import loginRoutes from './routes/loginRoutes';
+import fornecedorRoutes from './routes/fornecedorRoutes';
+import lojaRoutes from './routes/lojaRoutes';
+import produtoRoutes from './routes/produtoRoutes';
+import faxineiroRoutes from './routes/faxineiroRoutes';
+import postagemRoutes from './routes/postagemRoutes';
 
 const app = fastify();
-
-app.post('/faxineiros/:faxineiroId/postagens', {}, criarPostagem);
-app.post('/faxineiros', {}, criarFaxineiro);
-app.put('/postagem/:postagemId', editarPostagem);
-app.delete('/postagem/:postagemId', deletarPostagem);
-app.get('/faxineiro/:faxineiroId/postagens', listarPostagensDoFaxineiro);
-app.get('/postagens', listarTodasAsPostagens);
-
+//app.register(loginRoutes);
+app.register(fornecedorRoutes);
+app.register(lojaRoutes);
+app.register(produtoRoutes);
+app.register(faxineiroRoutes);
+app.register(postagemRoutes);
 
 
 const PORT = process.env.PORT || 3000;

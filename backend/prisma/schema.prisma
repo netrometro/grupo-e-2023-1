@@ -30,3 +30,31 @@ model Postagem {
   faxineiro   Faxineiro @relation(fields: [faxineiroId], references: [id])
   faxineiroId Int
 }
+
+model Fornecedor {
+  id       Int      @id @default(autoincrement())
+  nome     String
+  email    String   @unique
+  lojas    Loja[]
+  senha    String
+}
+
+model Loja {
+  id       Int      @id @default(autoincrement())
+  nome     String
+  endereco String
+  contato  String
+  fornecedorId Int?
+  fornecedor   Fornecedor? @relation(fields: [fornecedorId], references: [id])
+  produtos   Produto[]
+}
+
+model Produto {
+  id          Int      @id @default(autoincrement())
+  nome        String
+  descricao   String
+  preco       Float
+  lojaId      Int
+  loja        Loja     @relation(fields: [lojaId], references: [id])
+}
+
