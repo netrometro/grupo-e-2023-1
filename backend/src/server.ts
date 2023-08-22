@@ -1,12 +1,14 @@
 // app.ts
 import fastify from 'fastify';
-import { criarPostagem } from './controllers/faxineiro-controller/postagemController';
+import { criarPostagem, editarPostagem } from './controllers/faxineiro-controller/postagemController';
 import { criarFaxineiro } from './controllers/faxineiro-controller/faxineiroController';
 
 const app = fastify();
 
 app.post('/faxineiros/:faxineiroId/postagens', {}, criarPostagem);
 app.post('/faxineiros', {}, criarFaxineiro);
+app.put('/postagem/:postagemId', editarPostagem);
+
 
 
 const PORT = process.env.PORT || 3000;
