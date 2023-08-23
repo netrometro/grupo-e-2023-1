@@ -8,7 +8,10 @@ export const criarPostagem = async (req: FastifyRequest, res: FastifyReply) => {
   const body = req.body as Postagem;
   const { titulo, descricao, preco, horarios, faxineiroId } = body;
 
+  console.log('Recebido o seguinte body:', body);
+
   try {
+    console.log('Iniciando criação da postagem...');
     const postagem = await prisma.postagem.create({
       data: {
         titulo,
@@ -22,19 +25,20 @@ export const criarPostagem = async (req: FastifyRequest, res: FastifyReply) => {
         },
       },
     });
+    
+    console.log('Postagem criada:', postagem);
     res.send(postagem);
   } catch (error) {
+    console.error('Erro ao criar postagem:', error);
     res.status(500).send({ error: 'Erro ao criar postagem' });
   }
 };
+
 
 export const editarPostagem = async (req: FastifyRequest, res: FastifyReply) => {
   const postagemId = parseInt((req as any).params['postagemId'], 10);
   const body = req.body as Postagem;
   const { titulo, descricao, preco, horarios } = body;
-
-  console.log('ID da Postagem:', postagemId);
-  console.log('Dados do Corpo:', body);
 
   try {
     const postagem = await prisma.postagem.update({
