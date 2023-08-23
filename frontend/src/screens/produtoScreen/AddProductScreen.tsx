@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
-import axios from 'axios'; 
+import api from '../../service/api'; 
 
 const AddProductScreen = () => {
   const [nome, setNome] = useState('');
@@ -9,7 +9,7 @@ const AddProductScreen = () => {
 
   const handleAddProduct = async () => {
     try {
-      const response = await axios.post('/cadastrar-produto', {
+      const response = await api.post('/cadastrar-produto', {
         nome,
         descricao,
         preco: parseFloat(preco),
