@@ -4,11 +4,12 @@ import RegisterScreen from './src/screens/register/register';
 import LoginScreen from './src/screens/login/LoginScreen';
 import AddProductScreen from './src/screens/produtoScreen/AddProductScreen';
 import CreatePostScreen from './src/screens/home-faxineiro/createPost';
+import AddStoreScreen from './src/screens/storeScreen/AddStoreScreen';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <AddProductScreen/>
+      <AddStoreScreen/>
       <StatusBar style="auto" />
     </View>
   );
