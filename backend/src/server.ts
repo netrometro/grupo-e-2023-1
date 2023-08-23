@@ -1,12 +1,16 @@
 import fastify from 'fastify';
-//import loginRoutes from './routes/loginRoutes';
+
 import fornecedorRoutes from './routes/fornecedorRoutes';
 import lojaRoutes from './routes/lojaRoutes';
 import produtoRoutes from './routes/produtoRoutes';
 import faxineiroRoutes from './routes/faxineiroRoutes';
 import postagemRoutes from './routes/postagemRoutes';
+import fastifyCors from '@fastify/cors';
 
 const app = fastify();
+
+app.register(fastifyCors);
+
 //app.register(loginRoutes);
 app.register(fornecedorRoutes);
 app.register(lojaRoutes);
@@ -23,3 +27,7 @@ app.listen(PORT, (err, address) => {
   }
   console.log(`Servidor rodando em ${address}`);
 });
+function cors(): any {
+  throw new Error('Function not implemented.');
+}
+
