@@ -9,7 +9,6 @@ const RegisterScreen = () => {
   const [email, setEmail] = useState('');
   const [nome, setNome] = useState('');
   const [password, setPassword] = useState('');
-  const [telefone, setTelefone] = useState('');
 
   const navigation = useNavigation<StackTypes>()
 
@@ -27,7 +26,6 @@ const RegisterScreen = () => {
         email,
         nome,
         senha: password,
-        telefone,
       });
 
       if (response.status === 200) {
@@ -63,12 +61,6 @@ const RegisterScreen = () => {
         secureTextEntry
         value={password}
         onChangeText={setPassword}
-        style={[styles.input, styles.inputWhiteBackground]} 
-      />
-      <TextInput
-        placeholder="Telefone"
-        value={telefone}
-        onChangeText={setTelefone}
         style={[styles.input, styles.inputWhiteBackground]} 
       />
       <View style={styles.buttonContainer}>
