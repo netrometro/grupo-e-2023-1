@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
 import styles from './styles'; // Importe os estilos do arquivo styles.js
+import api from '../../service/api';
+import { useNavigation } from '@react-navigation/native';
+import { StackTypes } from '../../routes/StackNavigation';
 
 const RegisterScreen = () => {
   const [email, setEmail] = useState('');
@@ -8,7 +11,32 @@ const RegisterScreen = () => {
   const [password, setPassword] = useState('');
   const [telefone, setTelefone] = useState('');
 
-  const handleRegister = () => {
+  const navigation = useNavigation<StackTypes>()
+
+  const navigationHome = () => {
+    navigation.navigate('CreatePost')
+  }
+
+  const handleRegister = async () => {
+    try {
+      const response = await api.post('/faxineiros', {
+        email,
+        nome,
+        senha: password,
+        telefone,
+      });
+
+      if (response.status === 200) {
+        const responseData = response.data;
+        
+        console.log('Faxineiro registrado:', responseData);
+        navigationHome();
+      } else {
+        console.error('Erro ao registrar faxineiro');
+      }
+    } catch (error) {
+      console.error('Erro ao realizar o registro:', error);
+    }
   };
 
   return (

@@ -1,7 +1,16 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { StackTypes } from '../../routes/StackNavigation';
 
 export default function LoginScreen() {
+
+  const navigation = useNavigation<StackTypes>()
+
+  const navigationRegister = () => {
+    navigation.navigate('CreatePost')
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Clean Connect</Text>
@@ -22,6 +31,11 @@ export default function LoginScreen() {
       <TouchableOpacity style={styles.loginButton}>
         <Text style={styles.loginButtonText}>Login</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity onPress={navigationRegister} style={styles.loginButton}>
+        <Text style={styles.loginButtonText}>Login</Text>
+      </TouchableOpacity>
+
     </View>
   );
 }
