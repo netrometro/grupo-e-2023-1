@@ -38,19 +38,20 @@ const AddProductScreen = () => {
     <View style={styles.container}>
       <Text style={styles.title}>Adicionar Produto</Text>
       <TextInput
-        style={styles.input}
+        style={[styles.input, styles.inputWhiteBackground]}
         placeholder="Nome do Produto"
         value={nome}
         onChangeText={setNome}
+
       />
       <TextInput
-        style={styles.input}
+        style={[styles.input, styles.inputWhiteBackground]}
         placeholder="Descrição do Produto"
         value={descricao}
         onChangeText={setDescricao}
       />
       <TextInput
-        style={styles.input}
+        style={[styles.input, styles.inputWhiteBackground]}
         placeholder="Preço do Produto"
         value={preco}
         onChangeText={setPreco}
@@ -75,6 +76,7 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#4CAF9D',
   },
   title: {
     fontSize: 24,
@@ -98,6 +100,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
   },
+  inputWhiteBackground: {
+    backgroundColor: 'white',
+  }
 });
 
 export default AddProductScreen;

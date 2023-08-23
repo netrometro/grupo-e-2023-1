@@ -19,13 +19,13 @@ export default function LoginScreen() {
     <View style={styles.container}>
       <Text style={styles.title}>Clean Connect</Text>
       <TextInput
-        style={styles.input}
+        style={[styles.input, styles.inputWhiteBackground]}
         placeholder="Email"
         keyboardType="email-address"
         autoCapitalize="none"
       />
       <TextInput
-        style={styles.input}
+        style={[styles.input, styles.inputWhiteBackground]}
         placeholder="Senha"
         secureTextEntry
       />
@@ -55,6 +55,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
+    backgroundColor: '#4CAF9D',
+
   },
   title: {
     fontSize: 24,
@@ -85,5 +87,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
   },
+  inputWhiteBackground: {
+    backgroundColor: 'white',
+  }
 });
 

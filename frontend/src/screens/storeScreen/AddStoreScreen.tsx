@@ -38,19 +38,19 @@ const AddStoreScreen = () => {
     <View style={styles.container}>
       <Text style={styles.title}>Adicionar Loja</Text>
       <TextInput
-        style={styles.input}
+        style={[styles.input, styles.inputWhiteBackground]}
         placeholder="Nome da Loja"
         value={nome}
         onChangeText={setNome}
       />
       <TextInput
-        style={styles.input}
+        style={[styles.input, styles.inputWhiteBackground]}
         placeholder="Endereço da Loja"
         value={endereco}
         onChangeText={setEndereco}
       />
       <TextInput
-        style={styles.input}
+        style={[styles.input, styles.inputWhiteBackground]}
         placeholder="Contato da Loja"
         value={contato}
         onChangeText={setContato}
@@ -74,6 +74,8 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#4CAF9D',
+
   },
   title: {
     fontSize: 24,
@@ -97,6 +99,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
   },
+  inputWhiteBackground: {
+    backgroundColor: 'white',
+  }
 });
 
 export default AddStoreScreen;
