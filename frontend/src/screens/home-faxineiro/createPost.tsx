@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
 import styles from './styles'; 
 import api from '../../service/api'
+import { useNavigation } from '@react-navigation/native';
+import { StackTypes } from '../../routes/StackNavigation';
 
 
 const CreatePostScreen = () => {
@@ -10,6 +12,16 @@ const CreatePostScreen = () => {
   const [preco, setPreco] = useState('');
   const [horarios, setHorarios] = useState('');
   const [faxineiroId, setFaxineiroId] = useState('');
+
+  const navigation = useNavigation<StackTypes>()
+
+  const navigationRegister = () => {
+    navigation.navigate('Register')
+  }
+  const navigationLogin = () => {
+    navigation.navigate('Login')
+  }
+
 
   
   const handleCreatePost = async () => {
@@ -74,6 +86,20 @@ const CreatePostScreen = () => {
         <Button
           title="Criar Postagem"
           onPress={handleCreatePost}
+        />
+      </View>
+
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Ir para cadastro"
+          onPress={navigationRegister}
+        />
+      </View>
+
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Ir para login"
+          onPress={navigationLogin}
         />
       </View>
   

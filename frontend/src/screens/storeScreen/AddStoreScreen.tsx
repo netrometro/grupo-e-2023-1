@@ -11,8 +11,13 @@ const AddStoreScreen = () => {
 
   const navigation = useNavigation<StackTypes>()
 
-  const navigationRegister = () => {
+  const navigationHome = () => {
     navigation.navigate('CreatePost')
+  }
+
+  
+  const navigationRegister = () => {
+    navigation.navigate('Register')
   }
 
   const handleAddStore = async () => {
@@ -52,8 +57,12 @@ const AddStoreScreen = () => {
       />
       <Button title="Adicionar Loja" onPress={handleAddStore} />
 
+      <TouchableOpacity onPress={navigationHome} style={styles.loginButton}>
+        <Text style={styles.loginButtonText}>Home</Text>
+      </TouchableOpacity>
+
       <TouchableOpacity onPress={navigationRegister} style={styles.loginButton}>
-        <Text style={styles.loginButtonText}>Trocar aba</Text>
+        <Text style={styles.loginButtonText}>Registro</Text>
       </TouchableOpacity>
     </View>
   );

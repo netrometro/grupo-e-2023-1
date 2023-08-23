@@ -7,8 +7,12 @@ export default function LoginScreen() {
 
   const navigation = useNavigation<StackTypes>()
 
-  const navigationRegister = () => {
+  const navigationHome = () => {
     navigation.navigate('CreatePost')
+  }
+
+  const navigationRegister = () => {
+    navigation.navigate('Register')
   }
 
   return (
@@ -31,8 +35,20 @@ export default function LoginScreen() {
       <TouchableOpacity style={styles.loginButton}>
         <Text style={styles.loginButtonText}>Login</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={navigationRegister} style={styles.loginButton}>
+      <TouchableOpacity style={styles.loginButton}>
         <Text style={styles.loginButtonText}>Trocar aba</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.loginButton}>
+        <Text style={styles.loginButtonText}>Trocar aba</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={navigationHome} style={styles.loginButton}>
+        <Text style={styles.loginButtonText}>Ir para home</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={navigationRegister} style={styles.loginButton}>
+        <Text style={styles.loginButtonText}>Ir para registro</Text>
       </TouchableOpacity>
 
     </View>

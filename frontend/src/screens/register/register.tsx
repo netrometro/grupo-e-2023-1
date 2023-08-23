@@ -17,6 +17,10 @@ const RegisterScreen = () => {
     navigation.navigate('CreatePost')
   }
 
+  const navigationLogin = () => {
+    navigation.navigate('Login')
+  }
+
   const handleRegister = async () => {
     try {
       const response = await api.post('/faxineiros', {
@@ -78,6 +82,13 @@ const RegisterScreen = () => {
         <Button
           title="Registrar como Fornecedor"
           onPress={handleRegister}
+        />
+      </View>
+
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Ir para login"
+          onPress={navigationLogin}
         />
       </View>
 
