@@ -21,6 +21,14 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingHorizontal: 10,
   },
+  inputWhiteBackground: {
+    backgroundColor: 'white',
+  },
+  buttonContainer: {
+    paddingBottom:10,
+    paddingTop:10,
+    width: '80%',
+  },
 });
 
 export default styles;

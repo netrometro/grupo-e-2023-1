@@ -25,8 +25,6 @@ const styles = StyleSheet.create({
     paddingTop:10,
     width: '80%',
   },
-  button: {
-  },
   inputWhiteBackground: {
     backgroundColor: 'white', // Adicione o fundo branco para os campos de entrada
   },

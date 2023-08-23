@@ -1,11 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import RegisterScreen from './src/screens/register/register';
+import CreatePostScreen from './src/screens/home-faxineiro/createPost';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <RegisterScreen/>
+      <CreatePostScreen/>
       <StatusBar style="auto" />
     </View>
   );

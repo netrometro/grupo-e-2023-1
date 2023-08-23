@@ -35,33 +35,46 @@ const CreatePostScreen = () => {
         placeholder="Título"
         value={titulo}
         onChangeText={setTitulo}
-        style={styles.input}
+        style={[styles.input, styles.inputWhiteBackground]}
       />
       <TextInput
         placeholder="Descrição"
         value={descricao}
         onChangeText={setDescricao}
-        style={styles.input}
+        style={[styles.input, styles.inputWhiteBackground]}
       />
       <TextInput
         placeholder="Preço"
         value={preco}
         onChangeText={setPreco}
-        style={styles.input}
+        style={[styles.input, styles.inputWhiteBackground]}
       />
       <TextInput
         placeholder="Horários"
         value={horarios}
         onChangeText={setHorarios}
-        style={styles.input}
+        style={[styles.input, styles.inputWhiteBackground]}
       />
       <TextInput
         placeholder="ID do Faxineiro"
         value={faxineiroId}
         onChangeText={setFaxineiroId}
-        style={styles.input}
+        style={[styles.input, styles.inputWhiteBackground]}
       />
-      <Button title="Criar Postagem"/>
+
+<View style={styles.buttonContainer}>
+        <Button
+          title="Visualizar Postagens"
+        />
+      </View>
+      
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Criar Postagem"
+        />
+      </View>
+  
+
     </View>
   );
 };
