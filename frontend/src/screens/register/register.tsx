@@ -9,7 +9,6 @@ const RegisterScreen = () => {
   const [email, setEmail] = useState('');
   const [nome, setNome] = useState('');
   const [password, setPassword] = useState('');
-  const [telefone, setTelefone] = useState('');
 
   const navigation = useNavigation<StackTypes>()
 

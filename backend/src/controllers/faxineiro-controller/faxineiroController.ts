@@ -5,14 +5,13 @@ import { Faxineiro } from '../../types';
 const prisma = new PrismaClient();
 
 export const criarFaxineiro = async (req: FastifyRequest, res: FastifyReply) => {
-  const { email, nome, telefone } = req.body as Faxineiro;
+  const { email, nome } = req.body as Faxineiro;
 
   try {
     const faxineiro = await prisma.faxineiro.create({
       data: {
         email,
         nome,
-        telefone,
         senha:'teste'
       },
     });
