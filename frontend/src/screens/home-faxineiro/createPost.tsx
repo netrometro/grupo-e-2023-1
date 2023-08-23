@@ -22,7 +22,13 @@ const CreatePostScreen = () => {
     navigation.navigate('Login')
   }
 
+  const navigationProduto = () => {
+    navigation.navigate('CreateProducts')
+  }
 
+  const navigationStore = () => {
+    navigation.navigate('CreateStore')
+  }
   
   const handleCreatePost = async () => {
     const postagem = {
@@ -100,6 +106,20 @@ const CreatePostScreen = () => {
         <Button
           title="Ir para login"
           onPress={navigationLogin}
+        />
+      </View>
+
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Ir para pagina de produto"
+          onPress={navigationProduto}
+        />
+      </View>
+
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Ir para pagina da loja"
+          onPress={navigationStore}
         />
       </View>
   

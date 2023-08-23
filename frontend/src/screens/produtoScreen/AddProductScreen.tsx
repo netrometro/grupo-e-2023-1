@@ -12,6 +12,10 @@ const AddProductScreen = () => {
   const navigation = useNavigation<StackTypes>()
 
   const navigationRegister = () => {
+    navigation.navigate('Register')
+  }
+
+  const navigationHome = () => {
     navigation.navigate('CreatePost')
   }
 
@@ -55,7 +59,11 @@ const AddProductScreen = () => {
       <Button title="Adicionar Produto" onPress={handleAddProduct} />
 
       <TouchableOpacity onPress={navigationRegister} style={styles.loginButton}>
-        <Text style={styles.loginButtonText}>Trocar aba</Text>
+        <Text style={styles.loginButtonText}>Ir para registro</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={navigationRegister} style={styles.loginButton}>
+        <Text style={styles.loginButtonText}>Ir para home</Text>
       </TouchableOpacity>
     </View>
   );
