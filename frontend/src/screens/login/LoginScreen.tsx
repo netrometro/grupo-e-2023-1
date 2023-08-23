@@ -35,13 +35,7 @@ export default function LoginScreen() {
       <TouchableOpacity style={styles.loginButton}>
         <Text style={styles.loginButtonText}>Login</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.loginButton}>
-        <Text style={styles.loginButtonText}>Trocar aba</Text>
-      </TouchableOpacity>
 
-      <TouchableOpacity style={styles.loginButton}>
-        <Text style={styles.loginButtonText}>Trocar aba</Text>
-      </TouchableOpacity>
 
       <TouchableOpacity onPress={navigationHome} style={styles.loginButton}>
         <Text style={styles.loginButtonText}>Ir para home</Text>
