@@ -20,7 +20,7 @@ export type StackTypes = StackNavigationProp<StackNavigation>;
 export function StackNavigationComponent() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown:false}} initialRouteName="Register">
+      <Stack.Navigator screenOptions={{headerShown:false}} initialRouteName="Login">
         <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="CreatePost" component={CreatePostScreen} />

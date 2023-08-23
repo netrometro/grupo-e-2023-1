@@ -31,9 +31,8 @@ export default function LoginScreen() {
       <TouchableOpacity style={styles.loginButton}>
         <Text style={styles.loginButtonText}>Login</Text>
       </TouchableOpacity>
-
       <TouchableOpacity onPress={navigationRegister} style={styles.loginButton}>
-        <Text style={styles.loginButtonText}>Login</Text>
+        <Text style={styles.loginButtonText}>Trocar aba</Text>
       </TouchableOpacity>
 
     </View>

@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import api from '../../service/api';
+import { useNavigation } from '@react-navigation/native';
+import { StackTypes } from '../../routes/StackNavigation';
 
 const AddStoreScreen = () => {
   const [nome, setNome] = useState('');
   const [endereco, setEndereco] = useState('');
   const [contato, setContato] = useState('');
+
+  const navigation = useNavigation<StackTypes>()
+
+  const navigationRegister = () => {
+    navigation.navigate('CreatePost')
+  }
 
   const handleAddStore = async () => {
     try {
@@ -43,6 +51,10 @@ const AddStoreScreen = () => {
         onChangeText={setContato}
       />
       <Button title="Adicionar Loja" onPress={handleAddStore} />
+
+      <TouchableOpacity onPress={navigationRegister} style={styles.loginButton}>
+        <Text style={styles.loginButtonText}>Trocar aba</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -64,6 +76,17 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 20,
     paddingHorizontal: 10,
+  },
+  loginButton: {
+    backgroundColor: 'blue',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+  },
+  loginButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 16,
   },
 });
 
