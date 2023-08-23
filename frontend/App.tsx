@@ -4,14 +4,11 @@ import RegisterScreen from './src/screens/register/register';
 import LoginScreen from './src/screens/login/LoginScreen';
 import AddProductScreen from './src/screens/produtoScreen/AddProductScreen';
 import CreatePostScreen from './src/screens/home-faxineiro/createPost';
-import AddStoreScreen from './src/screens/storeScreen/AddStoreScreen';
+import { StackNavigationComponent } from './src/routes/StackNavigation';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <AddStoreScreen/>
-      <StatusBar style="auto" />
-    </View>
+      <StackNavigationComponent/>
   );
 }
 
