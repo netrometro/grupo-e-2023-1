@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
-//import axios from 'axios';
 import styles from './styles'; 
+import api from '../../service/api'
+
 
 const CreatePostScreen = () => {
   const [titulo, setTitulo] = useState('');
@@ -10,24 +11,25 @@ const CreatePostScreen = () => {
   const [horarios, setHorarios] = useState('');
   const [faxineiroId, setFaxineiroId] = useState('');
 
-  /*
+  
   const handleCreatePost = async () => {
     const postagem = {
       titulo,
       descricao,
-      preco,
+      preco: parseFloat(preco), // Converte para número
       horarios,
-      faxineiroId,
+      faxineiroId:parseFloat(faxineiroId),
     };
+    console.log(postagem)
 
     try {
-      const response = await axios.post('URL_DA_API_PARA_CRIAR_POSTAGEM', postagem);
+      const response = await api.post(`faxineiros/${faxineiroId}/postagens`, postagem);
       console.log(response.data); 
     } catch (error) {
       console.error('Erro ao criar postagem:', error);
     }
   };
-*/
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Criar Nova Postagem</Text>
@@ -71,6 +73,7 @@ const CreatePostScreen = () => {
       <View style={styles.buttonContainer}>
         <Button
           title="Criar Postagem"
+          onPress={handleCreatePost}
         />
       </View>
   
