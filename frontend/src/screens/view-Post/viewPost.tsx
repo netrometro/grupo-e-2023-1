@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, Button, FlatList } from 'react-native';
 import styles from './style';
 import api from '../../service/api'
+import Card from '../../components/Card/card';
 
 interface Postagem {
     id: number;
@@ -28,21 +29,20 @@ const ListagemPostagensScreen = ({ route }: any) => {
 
   return (
     <View style={styles.container}>
-        <Text style={styles.title}>Postagens</Text>
-        <FlatList
+      <Text style={styles.title}>Postagens</Text>
+      <FlatList
         data={exibirPostagens}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({item}) =>(
-            <View
-            style={styles.title}>
-                <Text >{item.titulo}</Text>
-                <Text >{item.descricao}</Text>
-                <Text >{item.preco}</Text>
-                <Text >{item.horarios}</Text>
-            </View>
+        keyExtractor={item => item.id.toString()}
+        renderItem={({ item }) => (
+          <Card
+            titulo={item.titulo}
+            descricao={item.descricao}
+            preco={item.preco}
+            horarios={item.horarios}
+          />
         )}
-        />
-      /</View>
+      />
+    </View>
   );
 };
 
