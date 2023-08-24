@@ -8,6 +8,7 @@ const AddStoreScreen = () => {
   const [nome, setNome] = useState('');
   const [endereco, setEndereco] = useState('');
   const [contato, setContato] = useState('');
+  const [fornecedorId, setFornecedorId] = useState('');
 
   const navigation = useNavigation<StackTypes>()
 
@@ -25,7 +26,8 @@ const AddStoreScreen = () => {
       const response = await api.post('/criar-loja', {
         nome,
         endereco,
-        contato
+        contato,
+        fornecedorId
       });
 
       console.log('Resposta do backend:', response.data);
@@ -54,6 +56,12 @@ const AddStoreScreen = () => {
         placeholder="Contato da Loja"
         value={contato}
         onChangeText={setContato}
+      />
+            <TextInput
+        style={styles.input}
+        placeholder="FornecedorId"
+        value={fornecedorId}
+        onChangeText={setFornecedorId}
       />
       <Button title="Adicionar Loja" onPress={handleAddStore} />
 

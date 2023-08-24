@@ -1,5 +1,5 @@
 import { FastifyInstance } from 'fastify';
-import { criarPostagem, editarPostagem, deletarPostagem, listarPostagensDoFaxineiro, listarTodasAsPostagens } from '../controllers/postagem-controller/postagemController';
+import { criarPostagem, editarPostagem, deletarPostagem, listarPostagensDoFaxineiro, listarTodasAsPostagens, obterDetalhesPostagem } from '../controllers/postagem-controller/postagemController';
 
 export default function (fastify: FastifyInstance, opts: any, done: () => void) {
 
@@ -8,6 +8,8 @@ export default function (fastify: FastifyInstance, opts: any, done: () => void) 
     fastify.delete('/postagem/:postagemId', deletarPostagem);
     fastify.get('/faxineiro/:faxineiroId/postagens', listarPostagensDoFaxineiro);
     fastify.get('/postagens', listarTodasAsPostagens);
+    fastify.get('/postagens/:postagemId', obterDetalhesPostagem);
+
 
   done();
 }

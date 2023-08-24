@@ -20,13 +20,34 @@ const RegisterScreen = () => {
     navigation.navigate('Login')
   }
 
-  const handleRegister = async () => {
+  const handleRegisterFornecedor = async () => {
     try {
       const response = await api.post('/faxineiros', {
         email,
         nome,
         senha: password,
       });
+
+  if (response.status === 200) {
+    const responseData = response.data;
+    
+    console.log('Fornecedor registrado:', responseData);
+    navigationHome();
+  } else {
+    console.error('Erro ao registrar fornecedor');
+  }
+} catch (error) {
+  console.error('Erro ao realizar o registro:', error);
+}
+};
+
+  const handleRegister = async () => {
+        try {
+          const response = await api.post('/faxineiros', {
+            email,
+            nome,
+            senha: password,
+          });
 
       if (response.status === 200) {
         const responseData = response.data;
@@ -73,7 +94,7 @@ const RegisterScreen = () => {
       <View style={styles.buttonContainer}>
         <Button
           title="Registrar como Fornecedor"
-          onPress={handleRegister}
+          onPress={handleRegisterFornecedor}
         />
       </View>
 
@@ -87,5 +108,4 @@ const RegisterScreen = () => {
     </View>
   );
 };
-
 export default RegisterScreen;

@@ -5,6 +5,13 @@ import api from '../../service/api'
 import { useNavigation } from '@react-navigation/native';
 import { StackTypes } from '../../routes/StackNavigation';
 
+interface Postagem {
+  id: number;
+  titulo: string;
+  descricao: string;
+  preco: number;
+  horarios: string;
+}
 
 const CreatePostScreen = () => {
   const [titulo, setTitulo] = useState('');
@@ -12,6 +19,8 @@ const CreatePostScreen = () => {
   const [preco, setPreco] = useState('');
   const [horarios, setHorarios] = useState('');
   const [faxineiroId, setFaxineiroId] = useState('');
+  const [exibirPostagens, setExibirPostagens] = useState(false); // Novo estado
+  const [postagens, setPostagens] = useState<Postagem[]>([]);
 
   const navigation = useNavigation<StackTypes>()
 
@@ -29,6 +38,10 @@ const CreatePostScreen = () => {
   const navigationStore = () => {
     navigation.navigate('CreateStore')
   }
+
+  const navigationView = () => {
+    navigation.navigate('ListagemPostagens')
+  }
   
   const handleCreatePost = async () => {
     const postagem = {
@@ -45,6 +58,17 @@ const CreatePostScreen = () => {
       console.log(response.data); 
     } catch (error) {
       console.error('Erro ao criar postagem:', error);
+    }
+  };
+
+  const handleExibirPostagens = async () => {
+    try {
+      const response = await api.get(`/postagens`);
+      setPostagens(response.data);
+      setExibirPostagens(true);
+      navigationView()
+    } catch (error) {
+      console.error('Erro ao carregar postagens:', error);
     }
   };
 
@@ -84,7 +108,10 @@ const CreatePostScreen = () => {
 
 <View style={styles.buttonContainer}>
         <Button
+        
           title="Visualizar Postagens"
+          onPress={handleExibirPostagens}
+
         />
       </View>
       

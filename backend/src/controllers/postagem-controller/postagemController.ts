@@ -123,3 +123,22 @@ export const listarTodasAsPostagens = async (_req: FastifyRequest, res: FastifyR
     res.status(500).send({ error: 'Erro ao listar todas as postagens' });
   }
 };
+
+export const obterDetalhesPostagem = async (req: FastifyRequest, res: FastifyReply) => {
+  const postagemId = parseInt((req as any).params['postagemId'], 10);
+
+  try {
+    const postagem = await prisma.postagem.findUnique({
+      where: { id: postagemId },
+    });
+
+    if (!postagem) {
+      res.status(404).send({ error: 'Postagem não encontrada' });
+      return;
+    }
+
+    res.send(postagem);
+  } catch (error) {
+    res.status(500).send({ error: 'Erro ao obter detalhes da postagem' });
+  }
+};
