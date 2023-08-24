@@ -38,6 +38,18 @@ const editPost = ({ route }: any) => {
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      const response = await api.delete(`/postagem/${postId}`);
+
+      if (response.status === 200) {
+        navigationHome();
+      } else {
+      }
+    } catch (error) {
+    }
+  };
+
   useEffect(() => {
     const getPosts = async () => {
       try {
@@ -95,6 +107,14 @@ const editPost = ({ route }: any) => {
         <Button
           title="Atualizar Postagem"
           onPress={handleUpdate}
+        />
+      </View>
+
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Deletar Postagem"
+          onPress={handleDelete}
+          color="red"
         />
       </View>
 
