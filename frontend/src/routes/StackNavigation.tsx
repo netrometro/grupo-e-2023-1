@@ -8,6 +8,7 @@ import AddStoreScreen from '../screens/storeScreen/AddStoreScreen';
 import AddProductScreen from '../screens/produtoScreen/AddProductScreen';
 import CreatePostScreen from '../screens/home-faxineiro/createPost';
 import ListagemPostagensScreen from '../screens/view-Post/viewPost';
+import editPost from '../screens/edit-post/editPost';
 
 const Stack = createStackNavigator();
 
@@ -28,6 +29,7 @@ export function StackNavigationComponent() {
         <Stack.Screen name="CreateStore" component={AddStoreScreen} />
         <Stack.Screen name="CreateProducts" component={AddProductScreen}/>
         <Stack.Screen name="ListagemPostagens" component={ListagemPostagensScreen} />
+        <Stack.Screen name="EditarPostagem" component={editPost} />
       </Stack.Navigator>
     </NavigationContainer>
   );
