@@ -35,6 +35,7 @@ const ListagemPostagensScreen = ({ route }: any) => {
         keyExtractor={item => item.id.toString()}
         renderItem={({ item }) => (
           <Card
+            id={item.id}
             titulo={item.titulo}
             descricao={item.descricao}
             preco={item.preco}
