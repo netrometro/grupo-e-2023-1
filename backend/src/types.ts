@@ -11,3 +11,8 @@ export interface Postagem {
     preco: number;
     horarios: string;
     faxineiroId:number  }
+
+export interface NovoTipoDeServico {
+      nomeServico: string;
+    }
+    

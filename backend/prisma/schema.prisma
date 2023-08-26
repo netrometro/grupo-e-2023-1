@@ -60,7 +60,7 @@ model Produto {
 
 model TipoDeServico {
   id          Int    @id @default(autoincrement())
-  nomeServico String
+  nomeServico String @unique
 
   @@map("tipos_de_servico")
 }
