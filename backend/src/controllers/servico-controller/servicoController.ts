@@ -32,3 +32,12 @@ export const criarServico = async (req: FastifyRequest, res: FastifyReply) => {
       res.status(500).send({ error: 'Erro ao criar tipo de serviço' });
     }
   };
+
+  export const obterTiposDeServico = async (req: FastifyRequest, res: FastifyReply) => {
+    try {
+      const tiposDeServico = await prisma.tipoDeServico.findMany();
+      res.send(tiposDeServico);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ error: 'Erro ao obter tipos de serviço' });
+    }};
