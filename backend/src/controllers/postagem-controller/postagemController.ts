@@ -64,7 +64,7 @@ export const criarPostagem = async (req: FastifyRequest, res: FastifyReply) => {
 export const editarPostagem = async (req: FastifyRequest, res: FastifyReply) => {
   const postagemId = parseInt((req as any).params['postagemId'], 10);
   const body = req.body as Postagem;
-  const { titulo, descricao, preco, horarios } = body;
+  const { titulo, descricao, preco, horarios, tipoServicoId } = body;
 
   try {
     const existingPostagem = await prisma.postagem.findUnique({
@@ -76,21 +76,36 @@ export const editarPostagem = async (req: FastifyRequest, res: FastifyReply) => 
       return;
     }
 
+    const tipoServico = await prisma.tipoDeServico.findUnique({
+      where: { id: tipoServicoId },
+    });
+
+    if (!tipoServico) {
+      res.status(400).send({ error: 'Tipo de serviço não encontrado' });
+      return;
+    }
+
     const postagem = await prisma.postagem.update({
-      where: { id: postagemId }, 
+      where: { id: postagemId },
       data: {
         titulo,
         descricao,
         preco,
         horarios,
+        tipoServicoRelacionamento: {
+          connect: {
+            id: tipoServicoId,
+          },
+        },
       },
     });
-    
+
     res.send(postagem);
   } catch (error) {
     res.status(500).send({ error: 'Erro ao atualizar postagem' });
   }
 };
+
 export const deletarPostagem = async (req: FastifyRequest, res: FastifyReply) => {
   const postagemId = parseInt((req as any).params['postagemId'], 10);
 

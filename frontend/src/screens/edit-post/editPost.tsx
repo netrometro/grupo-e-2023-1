@@ -4,6 +4,7 @@ import api from '../../service/api';
 import styles from './style';
 import { useNavigation } from '@react-navigation/native';
 import { StackTypes } from '../../routes/StackNavigation';
+import { Picker } from '@react-native-picker/picker';
 
 const editPost = ({ route }: any) => {
   const navigation = useNavigation<StackTypes>()
@@ -14,6 +15,8 @@ const editPost = ({ route }: any) => {
   const [descricao, setDescricao] = useState('');
   const [preco, setPreco] = useState('');
   const [horarios, setHorarios] = useState('');
+  const [tiposDeServico, setTiposDeServico] = useState([]);
+  const [tipoServicoSelecionado, setTipoServicoSelecionado] = useState('');
 
   const navigationHome = () => {
     navigation.navigate('CreatePost')
@@ -26,6 +29,7 @@ const editPost = ({ route }: any) => {
         descricao,
         preco: parseFloat(preco),
         horarios,
+        tipoServicoId: parseInt(tipoServicoSelecionado), 
       });
 
       if (response.status === 200) {
@@ -50,28 +54,39 @@ const editPost = ({ route }: any) => {
     }
   };
 
+  const getPosts = async () => {
+    try {
+      const response = await api.get(`/postagens/${postId}`);
+      const postData = response.data;
+
+      setTitulo(postData.titulo);
+      setDescricao(postData.descricao);
+      setPreco(postData.preco.toString());
+      setHorarios(postData.horarios);
+      setTipoServicoSelecionado(postData.tipoServicoId.toString());
+    } catch (error) {
+      console.error('Erro ao obter dados da postagem:', error);
+    }
+  };
+
+  const getTiposDeServico = async () => {
+    try {
+      const response = await api.get('/allService');
+      setTiposDeServico(response.data);
+    } catch (error) {
+      console.error('Erro ao carregar tipos de serviço:', error);
+    }
+  };
+
   useEffect(() => {
-    const getPosts = async () => {
-      try {
-        const response = await api.get(`/postagens/${postId}`);
-        const postData = response.data;
-
-        setTitulo(postData.titulo);
-        setDescricao(postData.descricao);
-        setPreco(postData.preco.toString());
-        setHorarios(postData.horarios);
-      } catch (error) {
-        console.error('Erro ao obter dados da postagem:', error);
-      }
-    };
-
     getPosts();
+    getTiposDeServico();
   }, [postId]);
 
   return (
     <View>
             <View style={styles.container}>
-            <Text style={styles.title}>Criar Nova Postagem</Text>
+            <Text style={styles.title}>Atualizar Postagem</Text>
       <TextInput
         placeholder="Título"
         value={titulo}
@@ -91,9 +106,7 @@ const editPost = ({ route }: any) => {
         value={preco}
         onChangeText={setPreco}
         style={[styles.input, styles.inputWhiteBackground]}
-                style={[styles.input, styles.inputWhiteBackground]}
-
-
+        
       />
       <TextInput
         placeholder="Horários"
@@ -102,6 +115,17 @@ const editPost = ({ route }: any) => {
         style={[styles.input, styles.inputWhiteBackground]}
 
       />
+
+      <Picker
+        style={[styles.input, styles.inputWhiteBackground]}
+        selectedValue={tipoServicoSelecionado}
+        onValueChange={(itemValue) => setTipoServicoSelecionado(itemValue)}
+      >
+        <Picker.Item label="Selecione um tipo de serviço" value="" />
+        {tiposDeServico.map((tipo) => (
+          <Picker.Item key={tipo.id} label={tipo.nomeServico} value={tipo.id.toString()} />
+        ))}
+      </Picker>
 
       <View style={styles.buttonContainer}>
         <Button
