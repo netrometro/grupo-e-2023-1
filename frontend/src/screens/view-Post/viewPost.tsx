@@ -1,16 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, Button, FlatList } from 'react-native';
+import { View, Text, FlatList } from 'react-native';
 import styles from './style';
 import api from '../../service/api'
 import Card from '../../components/Card/card';
-
-interface Postagem {
-    id: number;
-    titulo: string;
-    descricao: string;
-    preco: number;
-    horarios: string;
-  }
 
 const ListagemPostagensScreen = ({ route }: any) => {
     const [exibirPostagens, setExibirPostagens] = useState(false);

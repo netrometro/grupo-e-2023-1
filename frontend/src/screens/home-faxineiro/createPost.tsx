@@ -131,7 +131,7 @@ useEffect(() => {
   selectedValue={tipoServicoSelecionado}
   onValueChange={(itemValue) => setTipoServicoSelecionado(itemValue)}
 >
-  <Picker.Item label="Selecione um tipo de serviço" value="" /> {/* Mensagem default */}
+  <Picker.Item label="Selecione um tipo de serviço" value="" />
   {tiposDeServico.map((tipo) => (
     <Picker.Item key={tipo.id} label={tipo.nomeServico} value={tipo.id.toString()} />
   ))}
