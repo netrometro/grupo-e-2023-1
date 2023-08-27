@@ -4,6 +4,7 @@ import styles from './styles';
 import api from '../../service/api'
 import { useNavigation } from '@react-navigation/native';
 import { StackTypes } from '../../routes/StackNavigation';
+import {Picker} from '@react-native-picker/picker'
 
 interface Postagem {
   id: number;
@@ -53,6 +54,8 @@ const CreatePostScreen = () => {
       preco: parseFloat(preco),
       horarios,
       faxineiroId:parseFloat(faxineiroId),
+      tipoServicoId: parseInt(tipoServicoSelecionado), 
+
     };
     console.log(postagem)
 
@@ -122,6 +125,19 @@ useEffect(() => {
         onChangeText={setFaxineiroId}
         style={[styles.input, styles.inputWhiteBackground]}
       />
+
+<Picker
+  style={[styles.input, styles.inputWhiteBackground]}
+  selectedValue={tipoServicoSelecionado}
+  onValueChange={(itemValue) => setTipoServicoSelecionado(itemValue)}
+>
+  <Picker.Item label="Selecione um tipo de serviço" value="" /> {/* Mensagem default */}
+  {tiposDeServico.map((tipo) => (
+    <Picker.Item key={tipo.id} label={tipo.nomeServico} value={tipo.id.toString()} />
+  ))}
+</Picker>
+
+
 
 <View style={styles.buttonContainer}>
         <Button
