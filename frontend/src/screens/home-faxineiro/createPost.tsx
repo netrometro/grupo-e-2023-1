@@ -23,7 +23,6 @@ const CreatePostScreen = () => {
     descricao: '',
     preco: '',
     horarios: '',
-    faxineiroId: '',
     tipoServicoSelecionado: '',
   });
   

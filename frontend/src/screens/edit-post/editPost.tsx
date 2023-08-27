@@ -17,6 +17,27 @@ const editPost = ({ route }: any) => {
   const [horarios, setHorarios] = useState('');
   const [tiposDeServico, setTiposDeServico] = useState([]);
   const [tipoServicoSelecionado, setTipoServicoSelecionado] = useState('');
+  const [errors, setErrors] = useState({
+    titulo: '',
+    descricao: '',
+    preco: '',
+    horarios: '',
+    tipoServicoSelecionado: '',
+  });
+  
+  const validateForm = () => {
+    const newErrors = {
+      titulo: titulo.trim() === '' ? 'Preencha o título' : '',
+      descricao: descricao.trim() === '' ? 'Preencha a descrição' : '',
+      preco: isNaN(parseFloat(preco)) ? 'Preço inválido' : '',
+      horarios: horarios.trim() === '' ? 'Preencha os horários' : '',
+      tipoServicoSelecionado: tipoServicoSelecionado === '' ? 'Selecione um tipo de serviço' : '',
+    };
+  
+    setErrors(newErrors);
+  
+    return Object.values(newErrors).every(error => error === '');
+  };
 
   const navigationHome = () => {
     navigation.navigate('CreatePost')
@@ -24,6 +45,10 @@ const editPost = ({ route }: any) => {
 
   const handleUpdate = async () => {
     try {
+      if (!validateForm()) {
+        return;
+      }
+  
       const response = await api.put(`/postagem/${postId}`, {
         titulo,
         descricao,
@@ -33,7 +58,7 @@ const editPost = ({ route }: any) => {
       });
 
       if (response.status === 200) {
-        console.log('Postagem atualizada com sucesso:', response.data);
+        alert('Postagem atualizada com sucesso');
       } else {
         console.error('Erro ao atualizar postagem');
       }
@@ -87,6 +112,7 @@ const editPost = ({ route }: any) => {
     <View>
             <View style={styles.container}>
             <Text style={styles.title}>Atualizar Postagem</Text>
+      <Text style={styles.errorText}>{errors.titulo}</Text>
       <TextInput
         placeholder="Título"
         value={titulo}
@@ -94,6 +120,7 @@ const editPost = ({ route }: any) => {
         style={[styles.input, styles.inputWhiteBackground]}
 
       />
+      <Text style={styles.errorText}>{errors.descricao}</Text>
       <TextInput
         placeholder="Descrição"
         value={descricao}
@@ -101,6 +128,7 @@ const editPost = ({ route }: any) => {
         style={[styles.input, styles.inputWhiteBackground]}
 
       />
+      <Text style={styles.errorText}>{errors.preco}</Text>
       <TextInput
         placeholder="Preço"
         value={preco}
@@ -108,6 +136,7 @@ const editPost = ({ route }: any) => {
         style={[styles.input, styles.inputWhiteBackground]}
         
       />
+      <Text style={styles.errorText}>{errors.horarios}</Text>
       <TextInput
         placeholder="Horários"
         value={horarios}
@@ -115,7 +144,7 @@ const editPost = ({ route }: any) => {
         style={[styles.input, styles.inputWhiteBackground]}
 
       />
-
+      <Text style={styles.errorText}>{errors.tipoServicoSelecionado}</Text>
       <Picker
         style={[styles.input, styles.inputWhiteBackground]}
         selectedValue={tipoServicoSelecionado}
