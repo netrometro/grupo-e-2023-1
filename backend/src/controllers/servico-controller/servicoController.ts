@@ -41,3 +41,42 @@ export const criarServico = async (req: FastifyRequest, res: FastifyReply) => {
       console.error(error);
       res.status(500).send({ error: 'Erro ao obter tipos de serviço' });
     }};
+  
+
+    export const obterPostagensPorTipoServico = async (req: FastifyRequest, res: FastifyReply) => {
+      const tipoServicoId = parseInt((req as any).params['tipoServicoId'], 10);
+    
+      console.log("Tipo de serviço ID:", tipoServicoId);
+    
+      try {
+        const tipoServicoExistente = await prisma.tipoDeServico.findUnique({
+          where: {
+            id: tipoServicoId,
+          },
+        });
+    
+        if (!tipoServicoExistente) {
+          console.log("Tipo de serviço não encontrado.");
+          return res.status(404).send({ error: 'Tipo de serviço não encontrado.' });
+        }
+    
+        console.log("Tipo de serviço existente:", tipoServicoExistente);
+    
+        const postagens = await prisma.postagem.findMany({
+          where: {
+            tipoServicoId,
+          },
+          include: {
+            faxineiro: true,
+          },
+        });
+    
+        console.log("Postagens:", postagens);
+    
+        res.send(postagens);
+      } catch (error) {
+        console.error("Erro:", error);
+        res.status(500).send({ error: 'Erro ao obter postagens por tipo de serviço.' });
+      }
+    };
+    
