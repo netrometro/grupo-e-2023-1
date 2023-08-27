@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, TextInput, Button,  } from 'react-native';
 import styles from './styles'; 
 import api from '../../service/api'
 import { useNavigation } from '@react-navigation/native';
@@ -21,6 +21,9 @@ const CreatePostScreen = () => {
   const [faxineiroId, setFaxineiroId] = useState('');
   const [exibirPostagens, setExibirPostagens] = useState(false); // Novo estado
   const [postagens, setPostagens] = useState<Postagem[]>([]);
+  const [tiposDeServico, setTiposDeServico] = useState([]);
+  const [tipoServicoSelecionado, setTipoServicoSelecionado] = useState('');
+
 
   const navigation = useNavigation<StackTypes>()
 
@@ -47,7 +50,7 @@ const CreatePostScreen = () => {
     const postagem = {
       titulo,
       descricao,
-      preco: parseFloat(preco), // Converte para número
+      preco: parseFloat(preco),
       horarios,
       faxineiroId:parseFloat(faxineiroId),
     };
@@ -71,6 +74,20 @@ const CreatePostScreen = () => {
       console.error('Erro ao carregar postagens:', error);
     }
   };
+
+  const getTiposDeServico = async () => {
+  try {
+    const response = await api.get('/allService');
+    setTiposDeServico(response.data);
+  } catch (error) {
+    console.error('Erro ao carregar tipos de serviço:', error);
+  }
+};
+
+useEffect(() => {
+  getTiposDeServico();
+}, []);
+
 
   return (
     <View style={styles.container}>
