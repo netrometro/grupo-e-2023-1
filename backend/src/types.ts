@@ -18,3 +18,7 @@ export interface NovoTipoDeServico {
       nomeServico: string;
     }
     
+export interface FilterMaxMin{
+  minPrice?: number;
+  maxPrice?: number;
+}
