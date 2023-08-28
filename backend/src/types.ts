@@ -10,4 +10,15 @@ export interface Postagem {
     descricao: string;
     preco: number;
     horarios: string;
-    faxineiroId:number  }
+    faxineiroId:number;
+    tipoServicoId:number
+   }
+
+export interface NovoTipoDeServico {
+      nomeServico: string;
+    }
+    
+export interface FilterMaxMin{
+  minPrice?: number;
+  maxPrice?: number;
+}

@@ -22,39 +22,48 @@ model Faxineiro {
 }
 
 model Postagem {
-  id          Int       @id @default(autoincrement())
-  titulo      String
-  descricao   String
-  preco       Float
-  horarios    String // Armazenando horários como uma única string
-  faxineiro   Faxineiro @relation(fields: [faxineiroId], references: [id])
-  faxineiroId Int
+  id                        Int           @id @default(autoincrement())
+  titulo                    String
+  descricao                 String
+  preco                     Float
+  horarios                  String
+  faxineiro                 Faxineiro     @relation(fields: [faxineiroId], references: [id])
+  faxineiroId               Int
+  tipoServicoRelacionamento TipoDeServico @relation(fields: [tipoServicoId], references: [id])
+  tipoServicoId             Int
 }
 
 model Fornecedor {
-  id       Int      @id @default(autoincrement())
-  nome     String
-  email    String   @unique
-  lojas    Loja[]
-  senha    String
+  id    Int    @id @default(autoincrement())
+  nome  String
+  email String @unique
+  lojas Loja[]
+  senha String
 }
 
 model Loja {
-  id       Int      @id @default(autoincrement())
-  nome     String
-  endereco String
-  contato  String
+  id           Int         @id @default(autoincrement())
+  nome         String
+  endereco     String
+  contato      String
   fornecedorId Int?
   fornecedor   Fornecedor? @relation(fields: [fornecedorId], references: [id])
-  produtos   Produto[]
+  produtos     Produto[]
 }
 
 model Produto {
-  id          Int      @id @default(autoincrement())
-  nome        String
-  descricao   String
-  preco       Float
-  lojaId      Int
-  loja        Loja     @relation(fields: [lojaId], references: [id])
+  id        Int    @id @default(autoincrement())
+  nome      String
+  descricao String
+  preco     Float
+  lojaId    Int
+  loja      Loja   @relation(fields: [lojaId], references: [id])
 }
 
+model TipoDeServico {
+  id          Int        @id @default(autoincrement())
+  nomeServico String     @unique
+  postagens   Postagem[]
+
+  @@map("tipos_de_servico")
+}

@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, TextInput, Button,  } from 'react-native';
 import styles from './styles'; 
 import api from '../../service/api'
 import { useNavigation } from '@react-navigation/native';
 import { StackTypes } from '../../routes/StackNavigation';
+import {Picker} from '@react-native-picker/picker'
 
+interface Postagem {
+  id: number;
+  titulo: string;
+  descricao: string;
+  preco: number;
+  horarios: string;
+}
 
 const CreatePostScreen = () => {
   const [titulo, setTitulo] = useState('');
@@ -12,6 +20,11 @@ const CreatePostScreen = () => {
   const [preco, setPreco] = useState('');
   const [horarios, setHorarios] = useState('');
   const [faxineiroId, setFaxineiroId] = useState('');
+  const [exibirPostagens, setExibirPostagens] = useState(false); // Novo estado
+  const [postagens, setPostagens] = useState<Postagem[]>([]);
+  const [tiposDeServico, setTiposDeServico] = useState([]);
+  const [tipoServicoSelecionado, setTipoServicoSelecionado] = useState('');
+
 
   const navigation = useNavigation<StackTypes>()
 
@@ -29,14 +42,20 @@ const CreatePostScreen = () => {
   const navigationStore = () => {
     navigation.navigate('CreateStore')
   }
+
+  const navigationView = () => {
+    navigation.navigate('ListagemPostagens')
+  }
   
   const handleCreatePost = async () => {
     const postagem = {
       titulo,
       descricao,
-      preco: parseFloat(preco), // Converte para número
+      preco: parseFloat(preco),
       horarios,
       faxineiroId:parseFloat(faxineiroId),
+      tipoServicoId: parseInt(tipoServicoSelecionado), 
+
     };
     console.log(postagem)
 
@@ -47,6 +66,31 @@ const CreatePostScreen = () => {
       console.error('Erro ao criar postagem:', error);
     }
   };
+
+  const handleExibirPostagens = async () => {
+    try {
+      const response = await api.get(`/postagens`);
+      setPostagens(response.data);
+      setExibirPostagens(true);
+      navigationView()
+    } catch (error) {
+      console.error('Erro ao carregar postagens:', error);
+    }
+  };
+
+  const getTiposDeServico = async () => {
+  try {
+    const response = await api.get('/allService');
+    setTiposDeServico(response.data);
+  } catch (error) {
+    console.error('Erro ao carregar tipos de serviço:', error);
+  }
+};
+
+useEffect(() => {
+  getTiposDeServico();
+}, []);
+
 
   return (
     <View style={styles.container}>
@@ -82,9 +126,25 @@ const CreatePostScreen = () => {
         style={[styles.input, styles.inputWhiteBackground]}
       />
 
+<Picker
+  style={[styles.input, styles.inputWhiteBackground]}
+  selectedValue={tipoServicoSelecionado}
+  onValueChange={(itemValue) => setTipoServicoSelecionado(itemValue)}
+>
+  <Picker.Item label="Selecione um tipo de serviço" value="" />
+  {tiposDeServico.map((tipo) => (
+    <Picker.Item key={tipo.id} label={tipo.nomeServico} value={tipo.id.toString()} />
+  ))}
+</Picker>
+
+
+
 <View style={styles.buttonContainer}>
         <Button
+        
           title="Visualizar Postagens"
+          onPress={handleExibirPostagens}
+
         />
       </View>
       
