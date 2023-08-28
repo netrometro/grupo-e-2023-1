@@ -32,8 +32,8 @@ interface Fornecedor {
   
       const fornecedorData = await prisma.fornecedor.create({
         data: {
-          nome,
           email,
+          nome,
           senha: senhaCriptografada,
         },
       });
