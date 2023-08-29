@@ -195,3 +195,20 @@ export const listarPostagensSemContrato = async (_req: FastifyRequest, res: Fast
     res.status(500).send({ error: 'Erro ao listar postagens sem contrato' });
   }
 };
+
+export const listarPostagensComContrato = async (_req: FastifyRequest, res: FastifyReply) => {
+  try {
+    const postagensComContrato = await prisma.postagem.findMany({
+      where: {
+        contratos: {
+          some: {},
+        },
+      },
+    });
+
+    res.send(postagensComContrato);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: 'Erro ao listar postagens com contrato' });
+  }
+};
