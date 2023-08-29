@@ -24,15 +24,9 @@ app.register(contratoRoutes);
 
 
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, (err, address) => {
-  if (err) {
-    console.error(err);
-    process.exit(1);
-  }
-  console.log(`Servidor rodando em ${address}`);
-});
-function cors(): any {
-  throw new Error('Function not implemented.');
-}
-
+app.listen({
+  host:'0.0.0.0',
+  port:process.env.PORT ? Number(process.env.PORT) : 3333,
+}).then(() =>{
+  console.log("HTTP SERVER LISTENING STARTED")
+})
