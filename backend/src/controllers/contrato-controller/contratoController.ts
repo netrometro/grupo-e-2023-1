@@ -123,3 +123,20 @@ export const aceitarContrato = async (req: FastifyRequest, res: FastifyReply) =>
     res.status(500).send({ error: 'Erro ao aceitar contrato' });
   }
 };
+
+export const cancelarContrato = async (req: FastifyRequest, res: FastifyReply) => {
+  const contratoId = parseInt((req as any).params['contratoId'], 10);
+
+  try {
+    console.log(`Excluindo contrato de ID: ${contratoId}`);
+
+    await prisma.contrato.delete({
+      where: { id: contratoId },
+    });
+
+    res.send({ message: 'Contrato cancelado e excluído com sucesso' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: 'Erro ao cancelar contrato' });
+  }
+};
