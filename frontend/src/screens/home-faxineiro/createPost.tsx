@@ -55,6 +55,11 @@ const CreatePostScreen = () => {
   const navigationView = () => {
     navigation.navigate('ListagemPostagens')
   }
+
+  const navigationViewContract = () => {
+    navigation.navigate('ViewContract')
+  }
+  
   
   const handleCreatePost = async () => {
     if (!validateForm()) {
@@ -187,6 +192,12 @@ useEffect(() => {
         <Button
           title="Ir para login"
           onPress={navigationLogin}
+        />
+      </View>
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Visualizar Postagens Como Proprietário"
+          onPress={navigationViewContract}
         />
       </View>
     </View>
