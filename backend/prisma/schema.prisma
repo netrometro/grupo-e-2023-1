@@ -3,22 +3,24 @@ generator client {
 }
 
 datasource db {
-  provider = "postgres"
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = "file:./sqlite.db"
 }
 
 model Faxineiro {
-  id              Int        @id @default(autoincrement())
-  nome            String
-  email           String     @unique
-  senha           String
-  telefone        String?
-  experiencia     String?
-  disponibilidade String?
-  area_atuacao    String?
-  created_at      DateTime   @default(now())
-  updated_at      DateTime   @updatedAt
-  postagens       Postagem[]
+  id                       Int        @id @default(autoincrement())
+  nome                     String
+  email                    String     @unique
+  senha                    String
+  telefone                 String?
+  experiencia              String?
+  disponibilidade          String?
+  area_atuacao             String?
+  created_at               DateTime   @default(now())
+  updated_at               DateTime   @updatedAt
+  postagens                Postagem[]
+  contratosComoContratante Contrato[] @relation("ContratanteContrato")
+  contratosComoResponsavel Contrato[] @relation("ResponsavelContrato")
 }
 
 model Postagem {
@@ -31,6 +33,7 @@ model Postagem {
   faxineiroId               Int
   tipoServicoRelacionamento TipoDeServico @relation(fields: [tipoServicoId], references: [id])
   tipoServicoId             Int
+  contratos                 Contrato[]
 }
 
 model Fornecedor {
@@ -66,4 +69,14 @@ model TipoDeServico {
   postagens   Postagem[]
 
   @@map("tipos_de_servico")
+}
+
+model Contrato {
+  id            Int       @id @default(autoincrement())
+  contratante   Faxineiro @relation("ContratanteContrato", fields: [contratanteId], references: [id])
+  contratanteId Int
+  responsavel   Faxineiro @relation("ResponsavelContrato", fields: [responsavelId], references: [id])
+  responsavelId Int
+  postagem      Postagem  @relation(fields: [postagemId], references: [id])
+  postagemId    Int
 }

@@ -22,3 +22,9 @@ export interface FilterMaxMin{
   minPrice?: number;
   maxPrice?: number;
 }
+export interface Contrato {
+  id: number;
+  contratanteId: number;
+  responsavelId: number;
+  postagemId: number;
+}

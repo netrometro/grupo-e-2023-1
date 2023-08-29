@@ -7,6 +7,7 @@ import faxineiroRoutes from './routes/faxineiroRoutes';
 import postagemRoutes from './routes/postagemRoutes';
 import fastifyCors from '@fastify/cors';
 import servicoRoutes from './routes/servicoRoutes';
+import contratoRoutes from './routes/contratoRoutes';
 
 const app = fastify();
 
@@ -19,6 +20,8 @@ app.register(produtoRoutes);
 app.register(faxineiroRoutes);
 app.register(postagemRoutes);
 app.register(servicoRoutes);
+app.register(contratoRoutes);
+
 
 
 const PORT = process.env.PORT || 3000;
