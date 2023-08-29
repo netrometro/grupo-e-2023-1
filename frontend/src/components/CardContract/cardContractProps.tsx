@@ -5,6 +5,6 @@ interface CardContractProps {
     preco: number;
     horarios: string;
     telefoneResponsavel:string;
-    contratos?: any[]; // Altere o tipo "any[]" para o tipo apropriado
+    contratos?: any[]; 
     solicitacoes?: any[];
   }

@@ -45,9 +45,13 @@ const ViewContract = ({ route }: any) => {
   const fetchPostagens = async () => {
     try {
       const responseComContrato = await getPostagensComContratoDoUsuario();
+      console.log("Contratos recebidos:", responseComContrato); 
+
       setExibirPostagensComContrato(responseComContrato);
 
       const responseComSolicitacao = await getPostagensComSolicitacaoDeContrato();
+      console.log("Solicitações recebidas:", responseComSolicitacao); 
+
       setExibirPostagensComSolicitacao(responseComSolicitacao);
 
       const responseLivres = await getPostagens();
@@ -82,38 +86,41 @@ const ViewContract = ({ route }: any) => {
       <View style={styles.buttonContainer}>
         <Button title="Pesquisar" onPress={fetchPostagens} />
       </View>
-     
+
+
       <Text style={styles.title}>Com Contrato</Text>
       <FlatList
-        data={exibirPostagensComContrato}
-        keyExtractor={item => item.id.toString()}
-        renderItem={({ item }) => (
-          <CardContract
-            id={item.id}
-            titulo={item.titulo}
-            descricao={item.descricao}
-            preco={item.preco}
-            horarios={item.horarios}
-            telefoneResponsavel={item.contratos[0]?.responsavel.telefone}
-            contratos={item.contratos}
-          />
-        )}
-      />
+  data={exibirPostagensComContrato}
+  keyExtractor={item => item.id.toString()}
+  renderItem={({ item }) => (
+    <CardContract
+      id={item.id}
+      titulo={item.titulo}
+      descricao={item.descricao}
+      preco={item.preco}
+      horarios={item.horarios}
+      telefoneResponsavel={item.contratos[0]?.responsavel.telefone}
+      contratos={item.contratos}
+    />
+  )}
+/>
 
-      <Text style={styles.title}>Com Solicitação</Text>
-      <FlatList
-        data={exibirPostagensComSolicitacao}
-        keyExtractor={item => item.id.toString()}
-        renderItem={({ item }) => (
-          <CardContract
-            id={item.id}
-            titulo={item.titulo}
-            descricao={item.descricao}
-            preco={item.preco}
-            horarios={item.horarios}
-            solicitacoes={item.solicitacoes} telefoneResponsavel={''}                         />
-        )}
-      />
+<Text style={styles.title}>Com Solicitação</Text>
+<FlatList
+  data={exibirPostagensComSolicitacao}
+  keyExtractor={item => item.id.toString()}
+  renderItem={({ item }) => (
+    <CardContract
+      id={item.id}
+      titulo={item.titulo}
+      descricao={item.descricao}
+      preco={item.preco}
+      horarios={item.horarios}
+      solicitacoes={item.SolicitacaoContrato}      telefoneResponsavel={''}
+    />
+  )}
+/>
+
 
       <Text style={styles.title}>Livres</Text>
       <FlatList

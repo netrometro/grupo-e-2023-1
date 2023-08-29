@@ -90,20 +90,20 @@ const ViewContractResponsavel = ({ route }: any) => {
      
       <Text style={styles.title}>Com Contrato</Text>
       <FlatList
-        data={exibirPostagensComContrato}
-        keyExtractor={item => item.id.toString()}
-        renderItem={({ item }) => (
-          <CardContract
-            id={item.id}
-            titulo={item.titulo}
-            descricao={item.descricao}
-            preco={item.preco}
-            horarios={item.horarios}
-            telefoneResponsavel={item.contratos && item.contratos.length > 0 ? item.contratos[0]?.responsavel.telefone : ''}
-            contratos={item.contratos}
-          />
-        )}
-      />
+  data={exibirPostagensComContrato}
+  keyExtractor={item => item.id.toString()}
+  renderItem={({ item }) => (
+    <CardContract
+      id={item.id}
+      titulo={item.titulo}
+      descricao={item.descricao}
+      preco={item.preco}
+      horarios={item.horarios}
+      telefoneResponsavel={item.contratos && item.contratos.length > 0 ? item.contratos[0]?.responsavel.telefone : ''}
+      contratos={item.contratos}
+    />
+  )}
+/>
 
       <Text style={styles.title}>Com Solicitação</Text>
       <FlatList
@@ -116,7 +116,9 @@ const ViewContractResponsavel = ({ route }: any) => {
             descricao={item.descricao}
             preco={item.preco}
             horarios={item.horarios}
-            telefoneResponsavel={''}                         />
+            telefoneResponsavel={''}
+            solicitacoes={item.SolicitacaoContrato}
+           />
         )}
       />
 
