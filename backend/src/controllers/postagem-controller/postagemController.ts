@@ -311,6 +311,18 @@ export const listarPostagensComContratoResponsavel = async (req: FastifyRequest,
           },
         },
       },
+      include: {
+        contratos: {
+          select: {
+            responsavelId: true,
+            responsavel: {
+              select: {
+                telefone: true
+              }
+            }
+          },
+        },
+      },
     });
 
     res.send(postagensComContratoResponsavel);
@@ -319,6 +331,7 @@ export const listarPostagensComContratoResponsavel = async (req: FastifyRequest,
     res.status(500).send({ error: 'Erro ao listar postagens com contrato do usuário como responsável' });
   }
 };
+
 
 export const listarPostagensSolicitacaoResponsavel = async (req: FastifyRequest, res: FastifyReply) => {
   const responsavelId = parseInt((req as any).params['responsavelId'], 10);
