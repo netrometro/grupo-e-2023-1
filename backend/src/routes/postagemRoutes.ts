@@ -1,5 +1,5 @@
 import { FastifyInstance } from 'fastify';
-import { criarPostagem, editarPostagem, deletarPostagem, listarPostagensDoFaxineiro, listarTodasAsPostagens, obterDetalhesPostagem } from '../controllers/postagem-controller/postagemController';
+import {listarPostagensSemContrato,  criarPostagem, editarPostagem, deletarPostagem, listarPostagensDoFaxineiro, listarTodasAsPostagens, obterDetalhesPostagem } from '../controllers/postagem-controller/postagemController';
 import { listarPostagensPorPreco } from '../controllers/postagem-controller/precoPostagemController';
 
 export default function (fastify: FastifyInstance, opts: any, done: () => void) {
@@ -11,6 +11,7 @@ export default function (fastify: FastifyInstance, opts: any, done: () => void) 
     fastify.get('/postagens', listarTodasAsPostagens);
     fastify.get('/postagens/:postagemId', obterDetalhesPostagem);
     fastify.get('/postagens/filter-price', listarPostagensPorPreco);
+    fastify.get('/postagens/semContrato', listarPostagensSemContrato);
 
 
   done();
