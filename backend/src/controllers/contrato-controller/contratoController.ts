@@ -81,3 +81,45 @@ export const solicitarContrato = async (req: FastifyRequest, res: FastifyReply) 
     res.status(500).send({ error: 'Erro ao solicitar contrato' });
   }
 };
+
+export const aceitarContrato = async (req: FastifyRequest, res: FastifyReply) => {
+  const contratoId = parseInt((req as any).params['contratoId'], 10);
+
+  try {
+    const solicitacao = await prisma.solicitacaoContrato.findUnique({
+      where: { id: contratoId },
+    });
+
+    if (!solicitacao) {
+      res.status(404).send({ error: 'Solicitação de contrato não encontrada' });
+      return;
+    }
+
+    if (solicitacao.status === 'aceito') {
+      res.status(400).send({ error: 'Esta solicitação já foi aceita anteriormente' });
+      return;
+    }
+
+    const updatedSolicitacao = await prisma.solicitacaoContrato.update({
+      where: { id: contratoId },
+      data: { status: 'aceito' },
+    });
+
+    const novoContrato = await prisma.contrato.create({
+      data: {
+        contratante: { connect: { id: solicitacao.contratanteId } },
+        responsavel: { connect: { id: solicitacao.responsavelId } },
+        postagem: { connect: { id: solicitacao.postagemId } },
+      },
+    });
+
+    await prisma.solicitacaoContrato.delete({
+      where: { id: contratoId },
+    });
+
+    res.send(novoContrato);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: 'Erro ao aceitar contrato' });
+  }
+};

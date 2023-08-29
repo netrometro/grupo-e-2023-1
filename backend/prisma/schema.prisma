@@ -75,13 +75,14 @@ model TipoDeServico {
 }
 
 model Contrato {
-  id            Int       @id @default(autoincrement())
-  contratante   Faxineiro @relation("ContratanteContrato", fields: [contratanteId], references: [id])
-  contratanteId Int
-  responsavel   Faxineiro @relation("ResponsavelContrato", fields: [responsavelId], references: [id])
-  responsavelId Int
-  postagem      Postagem  @relation(fields: [postagemId], references: [id])
-  postagemId    Int
+  id                  Int                   @id @default(autoincrement())
+  contratante         Faxineiro             @relation("ContratanteContrato", fields: [contratanteId], references: [id])
+  contratanteId       Int
+  responsavel         Faxineiro             @relation("ResponsavelContrato", fields: [responsavelId], references: [id])
+  responsavelId       Int
+  postagem            Postagem              @relation(fields: [postagemId], references: [id])
+  postagemId          Int
+  SolicitacaoContrato SolicitacaoContrato[]
 }
 
 model SolicitacaoContrato {
@@ -92,6 +93,8 @@ model SolicitacaoContrato {
   responsavelId Int
   postagem      Postagem  @relation(fields: [postagemId], references: [id])
   postagemId    Int
+  contrato      Contrato  @relation(fields: [contratoId], references: [id])
+  contratoId    Int
   status        String
   created_at    DateTime  @default(now())
   updated_at    DateTime  @updatedAt
