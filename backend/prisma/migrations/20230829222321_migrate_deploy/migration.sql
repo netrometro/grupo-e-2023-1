@@ -68,6 +68,20 @@ CREATE TABLE "tipos_de_servico" (
 );
 
 -- CreateTable
+CREATE TABLE "SolicitacaoContrato" (
+    "id" SERIAL NOT NULL,
+    "contratanteId" INTEGER NOT NULL,
+    "responsavelId" INTEGER NOT NULL,
+    "postagemId" INTEGER NOT NULL,
+    "status" TEXT NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
+    "contratoId" INTEGER,
+
+    CONSTRAINT "SolicitacaoContrato_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Contrato" (
     "id" SERIAL NOT NULL,
     "contratanteId" INTEGER NOT NULL,
@@ -76,20 +90,6 @@ CREATE TABLE "Contrato" (
     "status" TEXT NOT NULL,
 
     CONSTRAINT "Contrato_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "solicitacoes_contrato" (
-    "id" SERIAL NOT NULL,
-    "contratanteId" INTEGER NOT NULL,
-    "responsavelId" INTEGER NOT NULL,
-    "postagemId" INTEGER NOT NULL,
-    "contratoId" INTEGER NOT NULL,
-    "status" TEXT NOT NULL,
-    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL,
-
-    CONSTRAINT "solicitacoes_contrato_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -114,6 +114,18 @@ ALTER TABLE "Loja" ADD CONSTRAINT "Loja_fornecedorId_fkey" FOREIGN KEY ("fornece
 ALTER TABLE "Produto" ADD CONSTRAINT "Produto_lojaId_fkey" FOREIGN KEY ("lojaId") REFERENCES "Loja"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "SolicitacaoContrato" ADD CONSTRAINT "SolicitacaoContrato_contratanteId_fkey" FOREIGN KEY ("contratanteId") REFERENCES "Faxineiro"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "SolicitacaoContrato" ADD CONSTRAINT "SolicitacaoContrato_responsavelId_fkey" FOREIGN KEY ("responsavelId") REFERENCES "Faxineiro"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "SolicitacaoContrato" ADD CONSTRAINT "SolicitacaoContrato_postagemId_fkey" FOREIGN KEY ("postagemId") REFERENCES "Postagem"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "SolicitacaoContrato" ADD CONSTRAINT "SolicitacaoContrato_contratoId_fkey" FOREIGN KEY ("contratoId") REFERENCES "Contrato"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "Contrato" ADD CONSTRAINT "Contrato_contratanteId_fkey" FOREIGN KEY ("contratanteId") REFERENCES "Faxineiro"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -121,15 +133,3 @@ ALTER TABLE "Contrato" ADD CONSTRAINT "Contrato_responsavelId_fkey" FOREIGN KEY 
 
 -- AddForeignKey
 ALTER TABLE "Contrato" ADD CONSTRAINT "Contrato_postagemId_fkey" FOREIGN KEY ("postagemId") REFERENCES "Postagem"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "solicitacoes_contrato" ADD CONSTRAINT "solicitacoes_contrato_contratanteId_fkey" FOREIGN KEY ("contratanteId") REFERENCES "Faxineiro"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "solicitacoes_contrato" ADD CONSTRAINT "solicitacoes_contrato_responsavelId_fkey" FOREIGN KEY ("responsavelId") REFERENCES "Faxineiro"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "solicitacoes_contrato" ADD CONSTRAINT "solicitacoes_contrato_postagemId_fkey" FOREIGN KEY ("postagemId") REFERENCES "Postagem"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "solicitacoes_contrato" ADD CONSTRAINT "solicitacoes_contrato_contratoId_fkey" FOREIGN KEY ("contratoId") REFERENCES "Contrato"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
