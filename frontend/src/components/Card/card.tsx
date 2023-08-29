@@ -11,6 +11,9 @@ const Card = ({ id, titulo, descricao, preco, horarios }: CardProps) => {
   const handleEditPress = () => {
          navigation.navigate('EditarPostagem', { postId: id });
   };
+  const handleContract = () => {
+    navigation.navigate('ContractPost', { postId: id });
+};
 
 
   return (
@@ -19,7 +22,9 @@ const Card = ({ id, titulo, descricao, preco, horarios }: CardProps) => {
     <Text style={styles.cardText}>{descricao}</Text>
     <Text style={styles.cardText}>Preço: R${preco}</Text>
     <Text style={styles.cardText}>Horários: {horarios}</Text>
-    <Button title="Editar" onPress={handleEditPress}/>    
+    <Button title="Editar" onPress={handleEditPress}/>
+    <Button title="Contratar Post" onPress={handleContract}/>    
+    
   </View>
   );
 };
