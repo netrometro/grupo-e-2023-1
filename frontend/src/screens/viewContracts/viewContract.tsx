@@ -98,8 +98,7 @@ const ViewContract = ({ route }: any) => {
             preco={item.preco}
             horarios={item.horarios}
             telefoneResponsavel={item.contratos[0]?.responsavel.telefone}
-
-            
+            contratos={item.contratos}
           />
         )}
       />
@@ -115,7 +114,7 @@ const ViewContract = ({ route }: any) => {
             descricao={item.descricao}
             preco={item.preco}
             horarios={item.horarios}
-          />
+            solicitacoes={item.solicitacoes} telefoneResponsavel={''}                         />
         )}
       />
 
@@ -125,12 +124,11 @@ const ViewContract = ({ route }: any) => {
         keyExtractor={item => item.id.toString()}
         renderItem={({ item }) => (
           <CardContract
-            id={item.id}
-            titulo={item.titulo}
-            descricao={item.descricao}
-            preco={item.preco}
-            horarios={item.horarios}
-          />
+                id={item.id}
+                titulo={item.titulo}
+                descricao={item.descricao}
+                preco={item.preco}
+                horarios={item.horarios} telefoneResponsavel={''}          />
         )}
       />
     </View>
