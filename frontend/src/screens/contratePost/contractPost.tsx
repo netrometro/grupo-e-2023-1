@@ -33,19 +33,20 @@ const contractPost = ({ route }: any) => {
         responsavelId: parseInt(responsavelId),
         postagemId: postId,
         contratanteId: parseInt(contratanteId)
-
-        
       });
   
       if (response.status === 200) {
         alert('Contrato solicitado com sucesso');
       } else {
         console.error('Erro ao solicitar contrato');
+        alert('Erro ao solicitar contrato');
       }
     } catch (error) {
+      console.error('Erro ao solicitar contrato:', error);
       alert('Erro ao solicitar contrato: ' + error);
     }
   };
+  
 
 
   const getPosts = async () => {

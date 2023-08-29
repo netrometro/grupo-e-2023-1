@@ -18,6 +18,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 3,
   },
+  buttonContainer: {
+    flexDirection: 'row',
+  },
+  button: {
+    flex: 1,
+    paddingHorizontal: 5,
+  },
+  editButton: {
+    marginTop: 10,
+  },
 });
 
 export default styles;

@@ -22,8 +22,12 @@ const Card = ({ id, titulo, descricao, preco, horarios }: CardProps) => {
     <Text style={styles.cardText}>{descricao}</Text>
     <Text style={styles.cardText}>Preço: R${preco}</Text>
     <Text style={styles.cardText}>Horários: {horarios}</Text>
-    <Button title="Editar" onPress={handleEditPress}/>
-    <Button title="Contratar Post" onPress={handleContract}/>    
+    <View style={styles.editButton}>
+        <Button title="Editar" onPress={handleEditPress} />
+      </View>
+      <View style={styles.editButton}>
+      <Button title="Contratar Post" onPress={handleContract}/>    
+      </View>
     
   </View>
   );

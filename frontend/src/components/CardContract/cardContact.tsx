@@ -3,6 +3,7 @@ import { View, Text, Button } from 'react-native';
 import styles from './styles'; 
 import { useNavigation } from '@react-navigation/native';
 import { StackTypes } from '../../routes/StackNavigation';
+import api from '../../service/api';
 
 
 const CardContract = ({ id, titulo, descricao, preco, horarios, telefoneResponsavel, contratos,
@@ -15,24 +16,43 @@ const CardContract = ({ id, titulo, descricao, preco, horarios, telefoneResponsa
 
   const handleCancelarContrato = async () => {
     try {
+      if (contratos && contratos.length > 0) {
+        const contratoId = contratos[0].id; 
+        console.log("ID do Contrato:", contratoId);
+
+        const response = await api.delete(`deleteContract/${contratoId}`);
+        if (response.status === 200) {
+          alert('Contrato cancelado com sucesso');
+        } else {
+          alert('Erro ao cancelar contrato');
+        }
+      } else {
+        alert('Nenhum contrato encontrado');
+      }
     } catch (error) {
       console.error('Erro ao cancelar contrato:', error);
     }
   };
 
-  const handleCancelarSolicitacao = async () => {
-    try {
-    } catch (error) {
-      console.error('Erro ao cancelar solicitação:', error);
-    }
-  };
+  // const handleCancelarSolicitacao = async (solicitacaoId: any) => {
+  //   try {
+  //     const response = await api.delete(`deleteSolicitacao/${solicitacaoId}`);
+  //     if (response.status === 200) {
+  //       alert('Solicitação de contrato cancelada com sucesso');
+  //     } else {
+  //       alert('Erro ao cancelar solicitação de contrato');
+  //     }
+  //   } catch (error) {
+  //     console.error('Erro ao cancelar solicitação:', error);
+  //   }
+  // };
 
-  const handleAceitarSolicitacao = async () => {
-    try {
-    } catch (error) {
-      console.error('Erro ao cancelar solicitação:', error);
-    }
-  };
+  // const handleAceitarSolicitacao = async () => {
+  //   try {
+  //   } catch (error) {
+  //     console.error('Erro ao cancelar solicitação:', error);
+  //   }
+  // };
 
 
   return (
@@ -46,10 +66,10 @@ const CardContract = ({ id, titulo, descricao, preco, horarios, telefoneResponsa
       {solicitacoes && solicitacoes.length > 0 ? (
         <View style={styles.buttonContainer}>
           <View style={[styles.button]}>
-            <Button title="Aceitar Solicitação" onPress={handleAceitarSolicitacao} />
+            <Button title="Aceitar Solicitação" />
           </View>
           <View style={[styles.button]}>
-            <Button title="Cancelar Solicitação" onPress={handleCancelarSolicitacao} color="red" />
+            <Button title="Cancelar Solicitação" color="red" />
           </View>
         </View>
       ) : contratos && contratos.length > 0 ? (
