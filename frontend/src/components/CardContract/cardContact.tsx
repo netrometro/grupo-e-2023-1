@@ -27,6 +27,13 @@ const CardContract = ({ id, titulo, descricao, preco, horarios, telefoneResponsa
     }
   };
 
+  const handleAceitarSolicitacao = async () => {
+    try {
+    } catch (error) {
+      console.error('Erro ao cancelar solicitação:', error);
+    }
+  };
+
 
   return (
     <View style={styles.cardContainer}>
@@ -36,10 +43,13 @@ const CardContract = ({ id, titulo, descricao, preco, horarios, telefoneResponsa
     <Text style={styles.cardText}>Horários: {horarios}</Text>
     <Text style={styles.cardText}>Telefone do Responsável:{telefoneResponsavel}</Text>
 
-    {contratos && contratos.length > 0 ? (
+    {solicitacoes && solicitacoes.length > 0 ? (
+        <View>
+          <Button title="Aceitar Solicitação" onPress={handleAceitarSolicitacao} />
+          <Button title="Cancelar Solicitação" onPress={handleCancelarSolicitacao} />
+        </View>
+      ) : contratos && contratos.length > 0 ? (
         <Button title="Cancelar Contrato" onPress={handleCancelarContrato} />
-      ) : solicitacoes && solicitacoes.length > 0 ? (
-        <Button title="Cancelar Solicitação" onPress={handleCancelarSolicitacao} />
       ) : null}
 
     

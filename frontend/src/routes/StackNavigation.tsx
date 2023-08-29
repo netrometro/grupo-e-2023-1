@@ -11,6 +11,7 @@ import ListagemPostagensScreen from '../screens/view-Post/viewPost';
 import editPost from '../screens/edit-post/editPost';
 import contractPost from '../screens/contratePost/contractPost';
 import ViewContract from '../screens/viewContracts/viewContract';
+import ViewContractResponsavel from '../screens/viewContractsResposible/contractResponsible';
 
 const Stack = createStackNavigator();
 
@@ -34,6 +35,7 @@ export function StackNavigationComponent() {
         <Stack.Screen name="EditarPostagem" component={editPost} />
         <Stack.Screen name="ContractPost" component={contractPost} />
         <Stack.Screen name="ViewContract" component={ViewContract} />
+        <Stack.Screen name="ViewContractResponsavel" component={ViewContractResponsavel} />
 
       </Stack.Navigator>
     </NavigationContainer>

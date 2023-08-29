@@ -5,16 +5,16 @@ import api from '../../service/api';
 import { Picker } from '@react-native-picker/picker';
 import CardContract from '../../components/CardContract/cardContact';
 
-const ViewContract = ({ route }: any) => {
+const ViewContractResponsavel = ({ route }: any) => {
   const [exibirPostagensComContrato, setExibirPostagensComContrato] = useState([]);
   const [exibirPostagensComSolicitacao, setExibirPostagensComSolicitacao] = useState([]);
   const [exibirPostagensLivres, setExibirPostagensLivres] = useState([]);
   const [tiposDeServico, setTiposDeServico] = useState([]);
-  const [faxineiroID, setFaxineiroID] = useState('');
+  const [responsavelID, setresponsavelID] = useState('');
 
   const getPostagensComContratoDoUsuario = async () => {
     try {
-      const response = await api.get(`/postagens/comContrato/${faxineiroID}`);
+      const response = await api.get(`postagens/comContratoResponsavel/${responsavelID}`);
       return response.data;
     } catch (error) {
       console.error('Erro ao buscar postagens com contrato:', error);
@@ -24,7 +24,7 @@ const ViewContract = ({ route }: any) => {
 
   const getPostagensComSolicitacaoDeContrato = async () => {
     try {
-      const response = await api.get(`/postagens/comSolicitacaoContrato/${faxineiroID}`);
+      const response = await api.get(`postagens/comSolicitacaocomResponsavel/${responsavelID}`);
       return response.data;
     } catch (error) {
       console.error('Erro ao buscar postagens com solicitação de contrato:', error);
@@ -34,13 +34,18 @@ const ViewContract = ({ route }: any) => {
 
   const getPostagens = async () => {
     try {
-      const response = await api.get(`postagens/livres/${faxineiroID}`);
+      const response = await api.get(`postagens/livres/${responsavelID}`, {
+        params: {
+          faxineiroID: responsavelID 
+        }
+      });
       return response.data;
     } catch (error) {
       console.error('Erro ao buscar postagens livres:', error);
       return [];
     }
   };
+  
 
   const fetchPostagens = async () => {
     try {
@@ -74,9 +79,9 @@ const ViewContract = ({ route }: any) => {
     <View style={styles.container}>
       <Text style={styles.title}>Postagens</Text>
       <TextInput
-        placeholder="ID do Faxineiro"
-        value={faxineiroID}
-        onChangeText={setFaxineiroID}
+        placeholder="ID do Responsável"
+        value={responsavelID}
+        onChangeText={setresponsavelID}
         style={[styles.input, styles.inputWhiteBackground]}
       />
       <View style={styles.buttonContainer}>
@@ -94,7 +99,7 @@ const ViewContract = ({ route }: any) => {
             descricao={item.descricao}
             preco={item.preco}
             horarios={item.horarios}
-            telefoneResponsavel={item.contratos[0]?.responsavel.telefone}
+            telefoneResponsavel={item.contratos && item.contratos.length > 0 ? item.contratos[0]?.responsavel.telefone : ''}
             contratos={item.contratos}
           />
         )}
@@ -111,7 +116,7 @@ const ViewContract = ({ route }: any) => {
             descricao={item.descricao}
             preco={item.preco}
             horarios={item.horarios}
-            solicitacoes={item.solicitacoes} telefoneResponsavel={''}                         />
+            telefoneResponsavel={''}                         />
         )}
       />
 
@@ -132,4 +137,4 @@ const ViewContract = ({ route }: any) => {
   );
 };
 
-export default ViewContract;
+export default ViewContractResponsavel;

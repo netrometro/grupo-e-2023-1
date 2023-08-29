@@ -60,6 +60,9 @@ const CreatePostScreen = () => {
     navigation.navigate('ViewContract')
   }
   
+  const ViewContractResponsavel = () => {
+    navigation.navigate('ViewContractResponsavel')
+  }
   
   const handleCreatePost = async () => {
     if (!validateForm()) {
@@ -198,6 +201,12 @@ useEffect(() => {
         <Button
           title="Visualizar Postagens Como Proprietário"
           onPress={navigationViewContract}
+        />
+      </View>
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Visualizar Postagens Como Responsavel"
+          onPress={ViewContractResponsavel}
         />
       </View>
     </View>
