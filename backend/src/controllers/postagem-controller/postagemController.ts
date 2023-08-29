@@ -229,6 +229,11 @@ export const listarPostagensComContratoDoUsuario = async (req: FastifyRequest, r
         contratos: {
           select: {
             responsavelId: true,
+            responsavel: {
+              select: {
+                telefone: true
+              }
+            }
           },
         },
       },
