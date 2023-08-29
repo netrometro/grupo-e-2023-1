@@ -4,22 +4,11 @@ import { Contrato } from '../../types';
 
 const prisma = new PrismaClient();
 
-export const criarContrato = async (req: FastifyRequest, res: FastifyReply) => {
+export const solicitarContrato = async (req: FastifyRequest, res: FastifyReply) => {
   const body = req.body as Contrato;
-  const { contratanteId, responsavelId, postagemId } = body;
+  const { contratanteId, responsavelId, postagemId, status, } = body;
 
   try {
-    const contratoExistente = await prisma.contrato.findFirst({
-      where: {
-        postagemId,
-      },
-    });
-
-    if (contratoExistente) {
-      res.status(400).send({ error: 'Já existe um responsável contratado para esta postagem' });
-      return;
-    }
-
     const contratante = await prisma.faxineiro.findUnique({
       where: { id: contratanteId },
     });
@@ -42,6 +31,7 @@ export const criarContrato = async (req: FastifyRequest, res: FastifyReply) => {
       where: { id: postagemId },
       include: {
         faxineiro: true,
+        SolicitacaoContrato: true, 
       },
     });
 
@@ -50,17 +40,21 @@ export const criarContrato = async (req: FastifyRequest, res: FastifyReply) => {
       return;
     }
 
-    if (postagem.faxineiroId !== contratanteId) {
-      res.status(400).send({ error: 'Apenas o proprietário pode criar contratos para esta postagem' });
-      return;
-    }
-
     if (postagem.faxineiroId === responsavelId) {
       res.status(400).send({ error: 'O proprietário não pode ser o responsável' });
       return;
     }
 
-    const contrato = await prisma.contrato.create({
+    const solicitacaoExistente = postagem.SolicitacaoContrato.find(
+      (solicitacao) => solicitacao.contratanteId === contratanteId
+    );
+
+    if (solicitacaoExistente) {
+      res.status(400).send({ error: 'Já existe uma solicitação de contrato para esta postagem' });
+      return;
+    }
+
+    const solicitacao = await prisma.solicitacaoContrato.create({
       data: {
         contratante: {
           connect: {
@@ -77,23 +71,13 @@ export const criarContrato = async (req: FastifyRequest, res: FastifyReply) => {
             id: postagemId,
           },
         },
+        status: 'pendente', 
       },
     });
-
-    await prisma.postagem.update({
-      where: { id: postagemId },
-      data: {
-        faxineiro: {
-          connect: {
-            id: contratanteId,
-          },
-        },
-      },
-    });
-
-    res.send(contrato);
+    
+    res.send(solicitacao);
   } catch (error) {
     console.error(error);
-    res.status(500).send({ error: 'Erro ao criar contrato' });
+    res.status(500).send({ error: 'Erro ao solicitar contrato' });
   }
 };

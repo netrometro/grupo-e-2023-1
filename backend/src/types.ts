@@ -27,4 +27,6 @@ export interface Contrato {
   contratanteId: number;
   responsavelId: number;
   postagemId: number;
+  status: string;
+  solicitacoes: boolean;
 }

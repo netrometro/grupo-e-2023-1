@@ -8,32 +8,35 @@ datasource db {
 }
 
 model Faxineiro {
-  id                       Int        @id @default(autoincrement())
+  id                       Int                   @id @default(autoincrement())
   nome                     String
-  email                    String     @unique
+  email                    String                @unique
   senha                    String
   telefone                 String?
   experiencia              String?
   disponibilidade          String?
   area_atuacao             String?
-  created_at               DateTime   @default(now())
-  updated_at               DateTime   @updatedAt
+  created_at               DateTime              @default(now())
+  updated_at               DateTime              @updatedAt
   postagens                Postagem[]
-  contratosComoContratante Contrato[] @relation("ContratanteContrato")
-  contratosComoResponsavel Contrato[] @relation("ResponsavelContrato")
+  contratosSolicitados     SolicitacaoContrato[] @relation("SolicitanteContrato")
+  contratosComoContratante Contrato[]            @relation("ContratanteContrato")
+  contratosComoResponsavel Contrato[]            @relation("ResponsavelContrato")
+  contratosResponsavel     SolicitacaoContrato[] @relation("ResponsavelContrato")
 }
 
 model Postagem {
-  id                        Int           @id @default(autoincrement())
+  id                        Int                   @id @default(autoincrement())
   titulo                    String
   descricao                 String
   preco                     Float
   horarios                  String
-  faxineiro                 Faxineiro     @relation(fields: [faxineiroId], references: [id])
+  faxineiro                 Faxineiro             @relation(fields: [faxineiroId], references: [id])
   faxineiroId               Int
-  tipoServicoRelacionamento TipoDeServico @relation(fields: [tipoServicoId], references: [id])
+  tipoServicoRelacionamento TipoDeServico         @relation(fields: [tipoServicoId], references: [id])
   tipoServicoId             Int
   contratos                 Contrato[]
+  SolicitacaoContrato       SolicitacaoContrato[]
 }
 
 model Fornecedor {
@@ -79,4 +82,19 @@ model Contrato {
   responsavelId Int
   postagem      Postagem  @relation(fields: [postagemId], references: [id])
   postagemId    Int
+}
+
+model SolicitacaoContrato {
+  id            Int       @id @default(autoincrement())
+  contratante   Faxineiro @relation("SolicitanteContrato", fields: [contratanteId], references: [id])
+  contratanteId Int
+  responsavel   Faxineiro @relation("ResponsavelContrato", fields: [responsavelId], references: [id])
+  responsavelId Int
+  postagem      Postagem  @relation(fields: [postagemId], references: [id])
+  postagemId    Int
+  status        String
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
+
+  @@map("solicitacoes_contrato")
 }
