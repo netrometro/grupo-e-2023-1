@@ -297,3 +297,53 @@ export const listarPostagensNaoAssociadas = async (req: FastifyRequest, res: Fas
     res.status(500).send({ error: 'Erro ao listar postagens não associadas a contrato ou solicitação' });
   }
 };
+
+
+export const listarPostagensComContratoResponsavel = async (req: FastifyRequest, res: FastifyReply) => {
+  const responsavelId = parseInt((req as any).params['responsavelId'], 10);
+
+  try {
+    const postagensComContratoResponsavel = await prisma.postagem.findMany({
+      where: {
+        contratos: {
+          some: {
+            responsavelId: responsavelId,
+          },
+        },
+      },
+    });
+
+    res.send(postagensComContratoResponsavel);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: 'Erro ao listar postagens com contrato do usuário como responsável' });
+  }
+};
+
+export const listarPostagensSolicitacaoResponsavel = async (req: FastifyRequest, res: FastifyReply) => {
+  const responsavelId = parseInt((req as any).params['responsavelId'], 10);
+
+  try {
+    const postagensSolicitacaoResponsavel = await prisma.postagem.findMany({
+      where: {
+        SolicitacaoContrato: {
+          some: {
+            responsavelId: responsavelId,
+          },
+        },
+      },
+      include: {
+        SolicitacaoContrato: {
+          select: {
+            contratanteId: true,
+          },
+        },
+      },
+    });
+
+    res.send(postagensSolicitacaoResponsavel);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: 'Erro ao listar postagens com solicitação de contrato do usuário como responsável' });
+  }
+};
