@@ -67,6 +67,31 @@ CREATE TABLE "tipos_de_servico" (
     CONSTRAINT "tipos_de_servico_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "Contrato" (
+    "id" SERIAL NOT NULL,
+    "contratanteId" INTEGER NOT NULL,
+    "responsavelId" INTEGER NOT NULL,
+    "postagemId" INTEGER NOT NULL,
+    "status" TEXT NOT NULL,
+
+    CONSTRAINT "Contrato_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "solicitacoes_contrato" (
+    "id" SERIAL NOT NULL,
+    "contratanteId" INTEGER NOT NULL,
+    "responsavelId" INTEGER NOT NULL,
+    "postagemId" INTEGER NOT NULL,
+    "contratoId" INTEGER NOT NULL,
+    "status" TEXT NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "solicitacoes_contrato_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "Faxineiro_email_key" ON "Faxineiro"("email");
 
@@ -87,3 +112,24 @@ ALTER TABLE "Loja" ADD CONSTRAINT "Loja_fornecedorId_fkey" FOREIGN KEY ("fornece
 
 -- AddForeignKey
 ALTER TABLE "Produto" ADD CONSTRAINT "Produto_lojaId_fkey" FOREIGN KEY ("lojaId") REFERENCES "Loja"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Contrato" ADD CONSTRAINT "Contrato_contratanteId_fkey" FOREIGN KEY ("contratanteId") REFERENCES "Faxineiro"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Contrato" ADD CONSTRAINT "Contrato_responsavelId_fkey" FOREIGN KEY ("responsavelId") REFERENCES "Faxineiro"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Contrato" ADD CONSTRAINT "Contrato_postagemId_fkey" FOREIGN KEY ("postagemId") REFERENCES "Postagem"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "solicitacoes_contrato" ADD CONSTRAINT "solicitacoes_contrato_contratanteId_fkey" FOREIGN KEY ("contratanteId") REFERENCES "Faxineiro"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "solicitacoes_contrato" ADD CONSTRAINT "solicitacoes_contrato_responsavelId_fkey" FOREIGN KEY ("responsavelId") REFERENCES "Faxineiro"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "solicitacoes_contrato" ADD CONSTRAINT "solicitacoes_contrato_postagemId_fkey" FOREIGN KEY ("postagemId") REFERENCES "Postagem"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "solicitacoes_contrato" ADD CONSTRAINT "solicitacoes_contrato_contratoId_fkey" FOREIGN KEY ("contratoId") REFERENCES "Contrato"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
