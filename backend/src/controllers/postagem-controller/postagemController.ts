@@ -212,3 +212,83 @@ export const listarPostagensComContrato = async (_req: FastifyRequest, res: Fast
     res.status(500).send({ error: 'Erro ao listar postagens com contrato' });
   }
 };
+
+export const listarPostagensComContratoDoUsuario = async (req: FastifyRequest, res: FastifyReply) => {
+  const faxineiroId = parseInt((req as any).params['faxineiroId'], 10);
+
+  try {
+    const postagensComContrato = await prisma.postagem.findMany({
+      where: {
+        contratos: {
+          some: {
+            contratanteId: faxineiroId,
+          },
+        },
+      },
+      include: {
+        contratos: {
+          select: {
+            responsavelId: true,
+          },
+        },
+      },
+    });
+
+    res.send(postagensComContrato);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: 'Erro ao listar postagens com contrato do usuário' });
+  }
+};
+
+export const listarPostagensSolicitacaoContrato = async (req: FastifyRequest, res: FastifyReply) => {
+  const faxineiroId = parseInt((req as any).params['faxineiroId'], 10);
+
+  try {
+    const postagensSolicitacaoContrato = await prisma.postagem.findMany({
+      where: {
+        SolicitacaoContrato       : {
+          some: {
+            contratanteId: faxineiroId,
+          },
+        },
+      },
+      include: {
+        SolicitacaoContrato       : {
+          select: {
+            responsavelId: true,
+          },
+        },
+      },
+    });
+
+    res.send(postagensSolicitacaoContrato);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: 'Erro ao listar postagens com solicitação de contrato do usuário' });
+  }
+};
+
+
+export const listarPostagensNaoAssociadas = async (req: FastifyRequest, res: FastifyReply) => {
+  const faxineiroId = parseInt((req as any).params['faxineiroId'], 10);
+
+  try {
+    const postagensNaoAssociadas = await prisma.postagem.findMany({
+      where: {
+        faxineiroId: faxineiroId,
+        contratos: {
+          none: {}
+        },
+        SolicitacaoContrato: {
+          none: {}
+        }
+      }
+    });
+
+    res.send(postagensNaoAssociadas);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: 'Erro ao listar postagens não associadas a contrato ou solicitação' });
+  }
+};
