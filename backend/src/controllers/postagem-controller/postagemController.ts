@@ -228,6 +228,7 @@ export const listarPostagensComContratoDoUsuario = async (req: FastifyRequest, r
       include: {
         contratos: {
           select: {
+            id: true,
             responsavelId: true,
             responsavel: {
               select: {
@@ -262,6 +263,7 @@ export const listarPostagensSolicitacaoContrato = async (req: FastifyRequest, re
         SolicitacaoContrato       : {
           select: {
             responsavelId: true,
+            id: true,
           },
         },
       },

@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 
 export const solicitarContrato = async (req: FastifyRequest, res: FastifyReply) => {
   const body = req.body as Contrato;
-  const { contratanteId, responsavelId, postagemId, status, } = body;
+  const { contratanteId, responsavelId, postagemId, status } = body;
 
   try {
     const contratante = await prisma.faxineiro.findUnique({
@@ -45,12 +45,16 @@ export const solicitarContrato = async (req: FastifyRequest, res: FastifyReply) 
       return;
     }
 
-    const solicitacaoExistente = postagem.SolicitacaoContrato.find(
-      (solicitacao) => solicitacao.contratanteId === contratanteId
-    );
+    // Verificar se o contratante já tem uma solicitação existente
+    const solicitacaoExistente = await prisma.solicitacaoContrato.findFirst({
+      where: {
+        contratanteId: contratanteId,
+        postagemId: postagemId,
+      },
+    });
 
     if (solicitacaoExistente) {
-      res.status(400).send({ error: 'Já existe uma solicitação de contrato para esta postagem' });
+      res.status(400).send({ error: 'Você já enviou uma solicitação de contrato para esta postagem' });
       return;
     }
 
@@ -71,16 +75,17 @@ export const solicitarContrato = async (req: FastifyRequest, res: FastifyReply) 
             id: postagemId,
           },
         },
-        status: 'pendente', 
+        status: 'pendente',
       },
     });
-    
+
     res.send(solicitacao);
   } catch (error) {
     console.error(error);
     res.status(500).send({ error: 'Erro ao solicitar contrato' });
   }
 };
+
 
 export const aceitarContrato = async (req: FastifyRequest, res: FastifyReply) => {
   const contratoId = parseInt((req as any).params['contratoId'], 10);
@@ -110,6 +115,7 @@ export const aceitarContrato = async (req: FastifyRequest, res: FastifyReply) =>
         contratante: { connect: { id: solicitacao.contratanteId } },
         responsavel: { connect: { id: solicitacao.responsavelId } },
         postagem: { connect: { id: solicitacao.postagemId } },
+        status: 'aceito',
       },
     });
 

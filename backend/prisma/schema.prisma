@@ -74,6 +74,21 @@ model TipoDeServico {
   @@map("tipos_de_servico")
 }
 
+model SolicitacaoContrato {
+  id            Int       @id @default(autoincrement())
+  contratante   Faxineiro @relation("SolicitanteContrato", fields: [contratanteId], references: [id])
+  contratanteId Int
+  responsavel   Faxineiro @relation("ResponsavelContrato", fields: [responsavelId], references: [id])
+  responsavelId Int
+  postagem      Postagem  @relation(fields: [postagemId], references: [id])
+  postagemId    Int
+  status        String
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
+  contrato      Contrato? @relation(fields: [contratoId], references: [id])
+  contratoId    Int?
+}
+
 model Contrato {
   id                  Int                   @id @default(autoincrement())
   contratante         Faxineiro             @relation("ContratanteContrato", fields: [contratanteId], references: [id])
@@ -84,21 +99,4 @@ model Contrato {
   postagemId          Int
   SolicitacaoContrato SolicitacaoContrato[]
   status              String
-}
-
-model SolicitacaoContrato {
-  id            Int       @id @default(autoincrement())
-  contratante   Faxineiro @relation("SolicitanteContrato", fields: [contratanteId], references: [id])
-  contratanteId Int
-  responsavel   Faxineiro @relation("ResponsavelContrato", fields: [responsavelId], references: [id])
-  responsavelId Int
-  postagem      Postagem  @relation(fields: [postagemId], references: [id])
-  postagemId    Int
-  contrato      Contrato  @relation(fields: [contratoId], references: [id])
-  contratoId    Int
-  status        String
-  created_at    DateTime  @default(now())
-  updated_at    DateTime  @updatedAt
-
-  @@map("solicitacoes_contrato")
 }
