@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
     height: 40,
     borderColor: 'gray',
     borderWidth: 1,
-    marginBottom: 10,
     paddingHorizontal: 10,
   },
   inputWhiteBackground: {
@@ -35,6 +34,21 @@ const styles = StyleSheet.create({
     color: 'red',
     marginBottom: 8,
   },
+  rowContainer: {
+    flexDirection: 'row',
+    alignItems: 'center', 
+    justifyContent: 'space-between', 
+    marginBottom: 10, 
+  },
+  inputCep: {
+    width: '40%',
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    paddingHorizontal: 10,
+    margin:10
+  },
+  
 });
 
 export default styles;

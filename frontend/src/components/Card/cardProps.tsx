@@ -4,4 +4,9 @@ interface CardProps {
     descricao: string;
     preco: number;
     horarios: string;
+    cep:string;
+    localidade:string;
+    logradouro:string;
+    bairro:string;
+    uf:string;
   }

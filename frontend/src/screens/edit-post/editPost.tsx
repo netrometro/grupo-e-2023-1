@@ -17,6 +17,12 @@ const editPost = ({ route }: any) => {
   const [horarios, setHorarios] = useState('');
   const [tiposDeServico, setTiposDeServico] = useState([]);
   const [tipoServicoSelecionado, setTipoServicoSelecionado] = useState('');
+  const [cep, setCep] = useState('');
+  const [logradouro, setLogradouro] = useState('');
+  const [localidade, setLocalidade] = useState('');
+  const [bairro, setBairro] = useState('');
+  const [uf, setUF] = useState('');
+  const [complemento, setComplemento] = useState('');
   const [errors, setErrors] = useState({
     titulo: '',
     descricao: '',
@@ -54,6 +60,12 @@ const editPost = ({ route }: any) => {
         descricao,
         preco: parseFloat(preco),
         horarios,
+        bairro,
+        complemento,
+        cep,
+        logradouro,
+        localidade,
+        uf,
         tipoServicoId: parseInt(tipoServicoSelecionado), 
       });
 
@@ -89,6 +101,12 @@ const editPost = ({ route }: any) => {
       setPreco(postData.preco.toString());
       setHorarios(postData.horarios);
       setTipoServicoSelecionado(postData.tipoServicoId.toString());
+      setCep(postData.cep);
+      setLogradouro(postData.logradouro);
+      setLocalidade(postData.localidade);
+      setBairro(postData.bairro);
+      setComplemento(postData.complemento);
+
     } catch (error) {
       console.error('Erro ao obter dados da postagem:', error);
     }
@@ -155,6 +173,39 @@ const editPost = ({ route }: any) => {
           <Picker.Item key={tipo.id} label={tipo.nomeServico} value={tipo.id.toString()} />
         ))}
       </Picker>
+      <TextInput
+    placeholder="CEP"
+    value={cep}
+    onChangeText={setCep}
+    style={[styles.input, styles.inputWhiteBackground]}
+  />
+      <TextInput
+        placeholder="Logradouro"
+        value={logradouro}
+        onChangeText={setLogradouro}
+        style={[styles.input, styles.inputWhiteBackground]}
+        editable={false}
+      />
+<TextInput
+        placeholder="Localidade"
+        value={localidade}
+        onChangeText={setLocalidade}
+        style={[styles.input, styles.inputWhiteBackground]}
+        editable={false}
+      />
+<TextInput
+        placeholder="Bairro"
+        value={bairro}
+        onChangeText={setBairro}
+        style={[styles.input, styles.inputWhiteBackground]}
+        editable={false}
+      />  
+<TextInput
+        placeholder="Complemento"
+        value={complemento}
+        onChangeText={setComplemento}
+        style={[styles.input, styles.inputWhiteBackground]}
+      />  
 
       <View style={styles.buttonContainer}>
         <Button

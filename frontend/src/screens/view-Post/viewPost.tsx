@@ -13,6 +13,12 @@ const ListagemPostagensScreen = ({ route }: any) => {
   const [tipoServicoSelecionado, setTipoServicoSelecionado] = useState('');
   const [tipoContratoSelecionado, setTipoContratoSelecionado] = useState('');
   const [filtroModificado, setFiltroModificado] = useState(false);
+  const [cep, setCep] = useState('');
+  const [logradouro, setLogradouro] = useState('');
+  const [localidade, setLocalidade] = useState('');
+  const [bairro, setBairro] = useState('');
+  const [uf, setUF] = useState('');
+  const [complemento, setComplemento] = useState('');
 
 
   const getPostagens = async () => {
@@ -125,6 +131,13 @@ const ListagemPostagensScreen = ({ route }: any) => {
             descricao={item.descricao}
             preco={item.preco}
             horarios={item.horarios}
+            cep = {item.cep}
+            bairro = {item.bairro}
+            localidade = {item.localidade}
+            logradouro = {item.logradouro}
+            uf = {item.uf}
+            complemento = {item.complemento}
+
           />
         )}
       />

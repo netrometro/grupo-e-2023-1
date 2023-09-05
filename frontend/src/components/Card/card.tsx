@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackTypes } from '../../routes/StackNavigation';
 
 
-const Card = ({ id, titulo, descricao, preco, horarios }: CardProps) => {
+const Card = ({ id, titulo, descricao, preco, horarios, bairro, uf, cep, localidade, logradouro }: CardProps) => {
 
   const navigation = useNavigation<StackTypes>();
   const handleEditPress = () => {
@@ -22,6 +22,13 @@ const Card = ({ id, titulo, descricao, preco, horarios }: CardProps) => {
     <Text style={styles.cardText}>{descricao}</Text>
     <Text style={styles.cardText}>Preço: R${preco}</Text>
     <Text style={styles.cardText}>Horários: {horarios}</Text>
+    <Text style={styles.cardText}>Cep: {cep}</Text>
+    <Text style={styles.cardText}>Logradouro: {logradouro}</Text>
+    <Text style={styles.cardText}>Localidade: {localidade}</Text>
+    <Text style={styles.cardText}>Bairro: {bairro}</Text>
+    <Text style={styles.cardText}>UF: {uf}</Text>
+
+
     <View style={styles.editButton}>
         <Button title="Editar" onPress={handleEditPress} />
       </View>

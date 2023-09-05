@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 
 export const criarPostagem = async (req: FastifyRequest, res: FastifyReply) => {
   const body = req.body as Postagem;
-  const { titulo, descricao, preco, horarios, faxineiroId, tipoServicoId } = body;
+  const { titulo, descricao, preco, horarios, faxineiroId, tipoServicoId, cep, uf, complemento, logradouro, localidade, bairro } = body;
   console.log(body)
 
   if (!tipoServicoId) {
@@ -39,6 +39,12 @@ export const criarPostagem = async (req: FastifyRequest, res: FastifyReply) => {
         descricao,
         preco,
         horarios,
+        complemento,
+        localidade,
+        bairro,
+        uf,
+        cep,
+        logradouro,
         faxineiro: {
           connect: {
             id: faxineiroId,
@@ -64,7 +70,7 @@ export const criarPostagem = async (req: FastifyRequest, res: FastifyReply) => {
 export const editarPostagem = async (req: FastifyRequest, res: FastifyReply) => {
   const postagemId = parseInt((req as any).params['postagemId'], 10);
   const body = req.body as Postagem;
-  const { titulo, descricao, preco, horarios, tipoServicoId } = body;
+  const { titulo, descricao, preco, horarios, tipoServicoId, cep, uf, complemento, logradouro, localidade, bairro } = body;
 
   try {
     const existingPostagem = await prisma.postagem.findUnique({
@@ -92,6 +98,12 @@ export const editarPostagem = async (req: FastifyRequest, res: FastifyReply) => 
         descricao,
         preco,
         horarios,
+        bairro,
+        complemento,
+        uf,
+        logradouro,
+        localidade,
+        cep,
         tipoServicoRelacionamento: {
           connect: {
             id: tipoServicoId,

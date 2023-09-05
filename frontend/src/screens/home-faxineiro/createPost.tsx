@@ -6,6 +6,8 @@ import { useNavigation } from '@react-navigation/native';
 import { StackTypes } from '../../routes/StackNavigation';
 import {Picker} from '@react-native-picker/picker'
 import { Postagem } from '../../interfaces/postagem';
+import viaCEPBaseUrl from '../../service/apiCep';
+import { ScrollView } from 'react-native';
 
 
 const CreatePostScreen = () => {
@@ -18,6 +20,12 @@ const CreatePostScreen = () => {
   const [postagens, setPostagens] = useState<Postagem[]>([]);
   const [tiposDeServico, setTiposDeServico] = useState([]);
   const [tipoServicoSelecionado, setTipoServicoSelecionado] = useState('');
+  const [cep, setCep] = useState('');
+  const [logradouro, setLogradouro] = useState('');
+  const [localidade, setLocalidade] = useState('');
+  const [bairro, setBairro] = useState('');
+  const [uf, setUF] = useState('');
+  const [complemento, setComplemento] = useState('');
   const [errors, setErrors] = useState({
     titulo: '',
     descricao: '',
@@ -65,6 +73,11 @@ const CreatePostScreen = () => {
   }
   
   const handleCreatePost = async () => {
+    if (cep === "") {
+      alert("Cep Inválido");
+      setCep("");
+      return
+    }
     if (!validateForm()) {
       return;
     }
@@ -75,7 +88,13 @@ const CreatePostScreen = () => {
       preco: parseFloat(preco),
       horarios,
       faxineiroId:parseFloat(faxineiroId),
-      tipoServicoId: parseInt(tipoServicoSelecionado), 
+      tipoServicoId: parseInt(tipoServicoSelecionado),
+      cep,
+      logradouro,
+      localidade,
+      bairro,
+      uf,
+      complemento, 
 
     };
     console.log(postagem)
@@ -109,21 +128,40 @@ const CreatePostScreen = () => {
   }
 };
 
+const buscarCEP = async () => {
+  if (cep === "") {
+    alert("Cep Inválido");
+    setCep("");
+  }
+  try {
+    const response = await viaCEPBaseUrl.get(`/${cep}/json/`);
+    const cepData = response.data;
+
+    setLogradouro(cepData.logradouro);
+    setLocalidade(cepData.localidade);
+    setBairro(cepData.bairro);
+    setUF(cepData.uf);
+    setComplemento(cepData.complemento);
+  } catch (error) {
+    console.error('Erro ao buscar CEP:', error);
+  }
+};
+
 useEffect(() => {
   getTiposDeServico();
 }, []);
 
 
   return (
+    <ScrollView>
     <View style={styles.container}>
       <Text style={styles.title}>Criar Nova Postagem</Text>
-      <Text style={styles.errorText}>{errors.titulo}</Text>
-
       <TextInput
         placeholder="Título"
         value={titulo}
         onChangeText={setTitulo}
         style={[styles.input, styles.inputWhiteBackground]}
+       
       />
       <Text style={styles.errorText}>{errors.descricao}</Text>
       <TextInput
@@ -165,9 +203,46 @@ useEffect(() => {
     <Picker.Item key={tipo.id} label={tipo.nomeServico} value={tipo.id.toString()} />
   ))}
 </Picker>
+<View style={styles.rowContainer}>
+  <TextInput
+    placeholder="CEP"
+    value={cep}
+    onChangeText={setCep}
+    style={[styles.inputCep, styles.inputWhiteBackground]}
+  />
+  <Button
+    title="Buscar Cep"
+    onPress={buscarCEP}
+  />
+</View>
 
-
-
+<TextInput
+        placeholder="Logradouro"
+        value={logradouro}
+        onChangeText={setLogradouro}
+        style={[styles.input, styles.inputWhiteBackground]}
+        editable={false}
+      />
+<TextInput
+        placeholder="Localidade"
+        value={localidade}
+        onChangeText={setLocalidade}
+        style={[styles.input, styles.inputWhiteBackground]}
+        editable={false}
+      />
+<TextInput
+        placeholder="Bairro"
+        value={bairro}
+        onChangeText={setBairro}
+        style={[styles.input, styles.inputWhiteBackground]}
+        editable={false}
+      />  
+<TextInput
+        placeholder="Complemento"
+        value={complemento}
+        onChangeText={setComplemento}
+        style={[styles.input, styles.inputWhiteBackground]}
+      />  
 <View style={styles.buttonContainer}>
         <Button
         
@@ -190,26 +265,8 @@ useEffect(() => {
           onPress={navigationRegister}
         />
       </View>
-
-      <View style={styles.buttonContainer}>
-        <Button
-          title="Ir para login"
-          onPress={navigationLogin}
-        />
-      </View>
-      <View style={styles.buttonContainer}>
-        <Button
-          title="Visualizar Postagens Como Proprietário"
-          onPress={navigationViewContract}
-        />
-      </View>
-      <View style={styles.buttonContainer}>
-        <Button
-          title="Visualizar Postagens Como Responsavel"
-          onPress={ViewContractResponsavel}
-        />
-      </View>
     </View>
+    </ScrollView>
   );
 };
 

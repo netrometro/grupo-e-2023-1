@@ -11,7 +11,13 @@ export interface Postagem {
     preco: number;
     horarios: string;
     faxineiroId:number;
-    tipoServicoId:number
+    tipoServicoId:number;
+    cep:string;
+    complemento:string;
+    localidade:string;
+    logradouro:string;
+    uf:string;
+    bairro:string;
    }
 
 export interface NovoTipoDeServico {

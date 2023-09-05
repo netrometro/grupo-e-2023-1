@@ -31,6 +31,12 @@ model Postagem {
   descricao                 String
   preco                     Float
   horarios                  String
+  cep                       String
+  logradouro                String
+  localidade                String
+  bairro                    String
+  uf                        String
+  complemento               String
   faxineiro                 Faxineiro             @relation(fields: [faxineiroId], references: [id])
   faxineiroId               Int
   tipoServicoRelacionamento TipoDeServico         @relation(fields: [tipoServicoId], references: [id])

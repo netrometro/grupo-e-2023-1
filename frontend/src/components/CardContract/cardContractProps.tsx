@@ -7,4 +7,9 @@ interface CardContractProps {
     telefoneResponsavel:string;
     contratos?: any[]; 
     solicitacoes?: any[];
+    cep:string;
+    localidade:string;
+    logradouro:string;
+    bairro:string;
+    uf:string;
   }

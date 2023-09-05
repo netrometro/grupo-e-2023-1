@@ -7,7 +7,7 @@ import api from '../../service/api';
 
 
 const CardContract = ({ id, titulo, descricao, preco, horarios, telefoneResponsavel, contratos,
-  solicitacoes }: CardContractProps) => {
+  solicitacoes, bairro, uf, cep, localidade, logradouro }: CardContractProps) => {
 
   const navigation = useNavigation<StackTypes>();
   const handleEditPress = () => {
@@ -62,6 +62,11 @@ const CardContract = ({ id, titulo, descricao, preco, horarios, telefoneResponsa
       <Text style={styles.cardText}>Preço: R${preco}</Text>
       <Text style={styles.cardText}>Horários: {horarios}</Text>
       <Text style={styles.cardText}>Telefone do Responsável: {telefoneResponsavel}</Text>
+      <Text style={styles.cardText}>Cep: {cep}</Text>
+      <Text style={styles.cardText}>Logradouro: {logradouro}</Text>
+      <Text style={styles.cardText}>Localidade: {localidade}</Text>
+      <Text style={styles.cardText}>Bairro: {bairro}</Text>
+      <Text style={styles.cardText}>UF: {uf}</Text>
   
       {solicitacoes && solicitacoes.length > 0 ? (
         <View style={styles.buttonContainer}>
