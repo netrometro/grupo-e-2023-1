@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, ScrollView } from 'react-native';
 import styles from './styles'; 
 import { useNavigation } from '@react-navigation/native';
 import { StackTypes } from '../../routes/StackNavigation';
@@ -14,7 +14,7 @@ const CardContract = ({ id, titulo, descricao, preco, horarios, telefoneResponsa
          navigation.navigate('EditarPostagem', { postId: id });
   };
 
-  const handleCancelarContrato = async () => {
+  const cancelarContrato = async () => {
     try {
       if (contratos && contratos.length > 0) {
         const contratoId = contratos[0].id; 
@@ -34,26 +34,43 @@ const CardContract = ({ id, titulo, descricao, preco, horarios, telefoneResponsa
     }
   };
 
-  // const handleCancelarSolicitacao = async (solicitacaoId: any) => {
-  //   try {
-  //     const response = await api.delete(`deleteSolicitacao/${solicitacaoId}`);
-  //     if (response.status === 200) {
-  //       alert('Solicitação de contrato cancelada com sucesso');
-  //     } else {
-  //       alert('Erro ao cancelar solicitação de contrato');
-  //     }
-  //   } catch (error) {
-  //     console.error('Erro ao cancelar solicitação:', error);
-  //   }
-  // };
+  const cancelarSolicitacao = async (solicitationIndex: number) => {
+    try {
+      if (solicitacoes && solicitacoes.length > solicitationIndex) {
+        const solicitationId = solicitacoes[solicitationIndex].id;
+        const response = await api.delete(`deleteSolicitContract/${solicitationId}`);
+        if (response.status === 200) {
+          alert('Solicitação de contrato cancelada com sucesso');
+        } else {
+          alert('Erro ao cancelar solicitação de contrato');
+        }
+      } else {
+        alert('Índice de solicitação inválido');
+      }
+    } catch (error) {
+      console.error('Erro ao cancelar solicitação:', error);
+    }
+  };
+  
 
-  // const handleAceitarSolicitacao = async () => {
-  //   try {
-  //   } catch (error) {
-  //     console.error('Erro ao cancelar solicitação:', error);
-  //   }
-  // };
-
+  const aceitarSolicitacao = async (solicitationIndex: number) => {
+    try {
+      if (solicitacoes && solicitacoes.length > solicitationIndex) {
+        const solicitationId = solicitacoes[solicitationIndex].id;
+        const response = await api.post(`acceptContract/${solicitationId}`);
+        if (response.status === 200) {
+          alert('Solicitação de contrato aceita com sucesso');
+        } else {
+          alert('Erro ao aceitar solicitação de contrato');
+        }
+      } else {
+        alert('Índice de solicitação inválido');
+      }
+    } catch (error) {
+      console.error('Erro ao aceitar solicitação:', error);
+    }
+  };
+  
 
   return (
     <View style={styles.cardContainer}>
@@ -67,30 +84,40 @@ const CardContract = ({ id, titulo, descricao, preco, horarios, telefoneResponsa
       <Text style={styles.cardText}>Localidade: {localidade}</Text>
       <Text style={styles.cardText}>Bairro: {bairro}</Text>
       <Text style={styles.cardText}>UF: {uf}</Text>
-  
+
       {solicitacoes && solicitacoes.length > 0 ? (
         <View style={styles.buttonContainer}>
-          <View style={[styles.button]}>
-            <Button title="Aceitar Solicitação" />
-          </View>
-          <View style={[styles.button]}>
-            <Button title="Cancelar Solicitação" color="red" />
-          </View>
+          {solicitacoes.map((solicitacao, index) => (
+            <View style={styles.buttonContainer} key={solicitacao.id}>
+              <View style={styles.button}>
+                <Button
+                  title={`Cancelar Solicitação`}
+                  color="red"
+                  onPress={() => cancelarSolicitacao(index)}
+                />
+              </View>
+              <View style={styles.button}>
+                <Button
+                  title={`Aceitar Solicitação`}
+                  onPress={() => aceitarSolicitacao(index)}
+                />
+              </View>
+            </View>
+          ))}
         </View>
       ) : contratos && contratos.length > 0 ? (
         <View style={styles.buttonContainer}>
-          <View style={[styles.button]}>
-            <Button title="Cancelar Contrato" onPress={handleCancelarContrato} color="red" />
+          <View style={styles.button}>
+            <Button title="Cancelar Contrato" onPress={cancelarContrato} color="red" />
           </View>
         </View>
       ) : null}
-  
+
       <View style={styles.editButton}>
         <Button title="Editar" onPress={handleEditPress} />
       </View>
     </View>
   );
-  
   
 };
 

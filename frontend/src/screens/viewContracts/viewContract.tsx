@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TextInput, Button } from 'react-native';
+import { View, Text, FlatList, TextInput, Button, ScrollView } from 'react-native';
 import styles from './style';
 import api from '../../service/api';
 import { Picker } from '@react-native-picker/picker';
@@ -75,6 +75,7 @@ const ViewContract = ({ route }: any) => {
   }, []);
 
   return (
+    <ScrollView>
     <View style={styles.container}>
       <Text style={styles.title}>Postagens</Text>
       <TextInput
@@ -152,6 +153,7 @@ const ViewContract = ({ route }: any) => {
         )}
       />
     </View>
+    </ScrollView>
   );
 };
 

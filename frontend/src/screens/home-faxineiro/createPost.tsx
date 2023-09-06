@@ -56,10 +56,6 @@ const CreatePostScreen = () => {
   const navigationRegister = () => {
     navigation.navigate('Register')
   }
-  const navigationLogin = () => {
-    navigation.navigate('Login')
-  }
-
   const navigationView = () => {
     navigation.navigate('ListagemPostagens')
   }
@@ -256,6 +252,20 @@ useEffect(() => {
         <Button
           title="Criar Postagem"
           onPress={handleCreatePost}
+        />
+      </View>
+
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Ver contrato que sou Responsável"
+          onPress={ViewContractResponsavel}
+        />
+      </View>
+
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Ver contratos"
+          onPress={navigationViewContract}
         />
       </View>
 

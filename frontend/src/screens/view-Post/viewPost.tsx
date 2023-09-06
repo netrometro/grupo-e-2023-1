@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TextInput, Button } from 'react-native';
+import { View, Text, FlatList, TextInput, Button, ScrollView } from 'react-native';
 import styles from './style';
 import api from '../../service/api';
 import Card from '../../components/Card/card';
@@ -75,6 +75,7 @@ const ListagemPostagensScreen = ({ route }: any) => {
   }, [ minPrice, maxPrice]);
 
   return (
+    <ScrollView>
     <View style={styles.container}>
       <Text style={styles.title}>Postagens</Text>
       <TextInput
@@ -142,6 +143,7 @@ const ListagemPostagensScreen = ({ route }: any) => {
         )}
       />
     </View>
+    </ScrollView>
   );
 };
 
