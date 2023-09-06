@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput, Button, ScrollView } from 'react-native';
 import api from '../../service/api';
 import styles from './style';
 import { useNavigation } from '@react-navigation/native';
@@ -81,6 +81,7 @@ const contractPost = ({ route }: any) => {
   }, [postId]);
 
   return (
+    <ScrollView>
     <View>
             <View style={styles.container}>
             <Text style={styles.title}>Contratar Serviço</Text>
@@ -145,7 +146,7 @@ const contractPost = ({ route }: any) => {
       </View>
     </View>
     </View>
-
+    </ScrollView>
   );
 };
 
