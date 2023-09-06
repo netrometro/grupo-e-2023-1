@@ -26,6 +26,7 @@ const CreatePostScreen = () => {
   const [bairro, setBairro] = useState('');
   const [uf, setUF] = useState('');
   const [complemento, setComplemento] = useState('');
+
   const [errors, setErrors] = useState({
     titulo: '',
     descricao: '',
@@ -90,8 +91,7 @@ const CreatePostScreen = () => {
       localidade,
       bairro,
       uf,
-      complemento, 
-
+      complemento
     };
     console.log(postagem)
 
@@ -137,7 +137,6 @@ const buscarCEP = async () => {
     setLocalidade(cepData.localidade);
     setBairro(cepData.bairro);
     setUF(cepData.uf);
-    setComplemento(cepData.complemento);
   } catch (error) {
     console.error('Erro ao buscar CEP:', error);
   }
@@ -232,13 +231,14 @@ useEffect(() => {
         onChangeText={setBairro}
         style={[styles.input, styles.inputWhiteBackground]}
         editable={false}
-      />  
-<TextInput
+      />
+      <TextInput
         placeholder="Complemento"
         value={complemento}
         onChangeText={setComplemento}
         style={[styles.input, styles.inputWhiteBackground]}
-      />  
+        editable={false}
+      />    
 <View style={styles.buttonContainer}>
         <Button
         

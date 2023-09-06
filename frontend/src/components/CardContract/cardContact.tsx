@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Button, ScrollView } from 'react-native';
 import styles from './styles'; 
 import { useNavigation } from '@react-navigation/native';
@@ -10,6 +10,7 @@ const CardContract = ({ id, titulo, descricao, preco, horarios, telefoneResponsa
   solicitacoes, bairro, uf, cep, localidade, logradouro }: CardContractProps) => {
 
   const navigation = useNavigation<StackTypes>();
+  const [reloadEffect, setReloadEffect] = useState<number>(0);
   const handleEditPress = () => {
          navigation.navigate('EditarPostagem', { postId: id });
   };
@@ -23,6 +24,7 @@ const CardContract = ({ id, titulo, descricao, preco, horarios, telefoneResponsa
         const response = await api.delete(`deleteContract/${contratoId}`);
         if (response.status === 200) {
           alert('Contrato cancelado com sucesso');
+          reloadPag()
         } else {
           alert('Erro ao cancelar contrato');
         }
@@ -41,6 +43,8 @@ const CardContract = ({ id, titulo, descricao, preco, horarios, telefoneResponsa
         const response = await api.delete(`deleteSolicitContract/${solicitationId}`);
         if (response.status === 200) {
           alert('Solicitação de contrato cancelada com sucesso');
+          reloadPag()
+
         } else {
           alert('Erro ao cancelar solicitação de contrato');
         }
@@ -60,6 +64,8 @@ const CardContract = ({ id, titulo, descricao, preco, horarios, telefoneResponsa
         const response = await api.post(`acceptContract/${solicitationId}`);
         if (response.status === 200) {
           alert('Solicitação de contrato aceita com sucesso');
+          reloadPag()
+
         } else {
           alert('Erro ao aceitar solicitação de contrato');
         }
@@ -70,6 +76,13 @@ const CardContract = ({ id, titulo, descricao, preco, horarios, telefoneResponsa
       console.error('Erro ao aceitar solicitação:', error);
     }
   };
+  
+  function reloadPag(){
+    setReloadEffect((prev) => prev+1)
+  }
+
+  useEffect(() => {
+  }, [reloadEffect]);
   
 
   return (
