@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TextInput, Button } from 'react-native';
+import { View, Text, FlatList, TextInput, Button, ScrollView } from 'react-native';
 import styles from './style';
 import api from '../../service/api';
 import { Picker } from '@react-native-picker/picker';
@@ -76,6 +76,7 @@ const ViewContractResponsavel = ({ route }: any) => {
   }, []);
 
   return (
+    <ScrollView>
     <View style={styles.container}>
       <Text style={styles.title}>Postagens</Text>
       <TextInput
@@ -116,8 +117,13 @@ const ViewContractResponsavel = ({ route }: any) => {
             descricao={item.descricao}
             preco={item.preco}
             horarios={item.horarios}
-            telefoneResponsavel={''}
             solicitacoes={item.SolicitacaoContrato}
+            cep={item.cep}
+            localidade={item.localidade}
+            logradouro={item.logradouro}
+            bairro={item.bairro}
+            uf={item.uf}
+            telefoneResponsavel={item.telefoneResponsavel} 
            />
         )}
       />
@@ -132,10 +138,17 @@ const ViewContractResponsavel = ({ route }: any) => {
                 titulo={item.titulo}
                 descricao={item.descricao}
                 preco={item.preco}
-                horarios={item.horarios} telefoneResponsavel={''}          />
+                horarios={item.horarios}
+                cep={item.cep}
+                localidade={item.localidade}
+                logradouro={item.logradouro}
+                bairro={item.bairro}
+                uf={item.uf}
+                telefoneResponsavel={item.telefoneResponsavel}          />
         )}
       />
     </View>
+    </ScrollView>
   );
 };
 
