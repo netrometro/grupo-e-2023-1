@@ -101,7 +101,11 @@ const ViewContract = ({ route }: any) => {
       horarios={item.horarios}
       telefoneResponsavel={item.contratos[0]?.responsavel.telefone}
       contratos={item.contratos}
-    />
+      cep={item.cep}
+      localidade={item.localidade}
+      logradouro={item.logradouro}
+      bairro={item.bairro}
+      uf={item.uf}    />
   )}
 />
 
@@ -116,7 +120,13 @@ const ViewContract = ({ route }: any) => {
       descricao={item.descricao}
       preco={item.preco}
       horarios={item.horarios}
-      solicitacoes={item.SolicitacaoContrato}      telefoneResponsavel={''}
+      solicitacoes={item.SolicitacaoContrato}
+      cep={item.cep}
+      localidade={item.localidade}
+      logradouro={item.logradouro}
+      bairro={item.bairro}
+      uf={item.uf}
+      telefoneResponsavel={item.telefoneResponsavel}
     />
   )}
 />
@@ -132,7 +142,13 @@ const ViewContract = ({ route }: any) => {
                 titulo={item.titulo}
                 descricao={item.descricao}
                 preco={item.preco}
-                horarios={item.horarios} telefoneResponsavel={''}          />
+                horarios={item.horarios}
+                telefoneResponsavel={''}
+                cep={item.cep}
+                localidade={item.localidade}
+                logradouro={item.logradouro}
+                bairro={item.bairro}
+                uf={item.uf}          />
         )}
       />
     </View>
