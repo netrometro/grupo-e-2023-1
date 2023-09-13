@@ -27,7 +27,7 @@ const CreatePostScreen = () => {
   const [bairro, setBairro] = useState('');
   const [uf, setUF] = useState('');
   const [complemento, setComplemento] = useState('');
-  useScreenGuard('CreatePostScreen');
+  useScreenGuard('CreatePost');
 
 
   const [errors, setErrors] = useState({

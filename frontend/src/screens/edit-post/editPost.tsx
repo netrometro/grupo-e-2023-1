@@ -8,7 +8,7 @@ import { Picker } from '@react-native-picker/picker';
 import { useScreenGuard } from '../../hooks/useScreenGuard';
 
 const editPost = ({ route }: any) => {
-  useScreenGuard('editPost');
+  useScreenGuard('EditarPostagem');
 
   const navigation = useNavigation<StackTypes>()
 
