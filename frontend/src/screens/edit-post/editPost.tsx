@@ -5,8 +5,11 @@ import styles from './style';
 import { useNavigation } from '@react-navigation/native';
 import { StackTypes } from '../../routes/StackNavigation';
 import { Picker } from '@react-native-picker/picker';
+import { useScreenGuard } from '../../hooks/useScreenGuard';
 
 const editPost = ({ route }: any) => {
+  useScreenGuard('editPost');
+
   const navigation = useNavigation<StackTypes>()
 
   const { postId } = route.params;

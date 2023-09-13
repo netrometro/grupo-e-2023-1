@@ -4,6 +4,7 @@ import styles from './style';
 import api from '../../service/api';
 import Card from '../../components/Card/card';
 import { Picker } from '@react-native-picker/picker';
+import { useScreenGuard } from '../../hooks/useScreenGuard';
 
 const ListagemPostagensScreen = ({ route }: any) => {
   const [exibirPostagens, setExibirPostagens] = useState([]);
@@ -19,6 +20,9 @@ const ListagemPostagensScreen = ({ route }: any) => {
   const [bairro, setBairro] = useState('');
   const [uf, setUF] = useState('');
   const [complemento, setComplemento] = useState('');
+
+  useScreenGuard('ListagemPostagensScreen');
+
 
 
   const getPostagens = async () => {

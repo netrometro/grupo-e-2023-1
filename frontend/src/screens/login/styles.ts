@@ -28,12 +28,12 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   inputWhiteBackground: {
-    backgroundColor: 'white', // Adicione o fundo branco para os campos de entrada
+    backgroundColor: 'white', 
   },
   forgotPassword: {
     alignSelf: 'flex-end',
     marginBottom: 20,
-  },
+  }
 });
 
 export default styles;

@@ -8,6 +8,7 @@ import {Picker} from '@react-native-picker/picker'
 import { Postagem } from '../../interfaces/postagem';
 import viaCEPBaseUrl from '../../service/apiCep';
 import { ScrollView } from 'react-native';
+import { useScreenGuard } from '../../hooks/useScreenGuard';
 
 
 const CreatePostScreen = () => {
@@ -26,6 +27,8 @@ const CreatePostScreen = () => {
   const [bairro, setBairro] = useState('');
   const [uf, setUF] = useState('');
   const [complemento, setComplemento] = useState('');
+  useScreenGuard('CreatePostScreen');
+
 
   const [errors, setErrors] = useState({
     titulo: '',

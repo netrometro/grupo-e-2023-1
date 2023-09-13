@@ -4,6 +4,7 @@ import styles from './style';
 import api from '../../service/api';
 import { Picker } from '@react-native-picker/picker';
 import CardContract from '../../components/CardContract/cardContact';
+import { useScreenGuard } from '../../hooks/useScreenGuard';
 
 const ViewContractResponsavel = ({ route }: any) => {
   const [exibirPostagensComContrato, setExibirPostagensComContrato] = useState([]);
@@ -11,6 +12,8 @@ const ViewContractResponsavel = ({ route }: any) => {
   const [exibirPostagensLivres, setExibirPostagensLivres] = useState([]);
   const [tiposDeServico, setTiposDeServico] = useState([]);
   const [responsavelID, setresponsavelID] = useState('');
+  useScreenGuard('ViewContractResponsavel');
+
 
   const getPostagensComContratoDoUsuario = async () => {
     try {

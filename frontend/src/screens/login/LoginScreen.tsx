@@ -1,11 +1,16 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
+import { Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { StackTypes } from '../../routes/StackNavigation';
+import styles from './styles';
+import api from '../../service/api';
 
 export default function LoginScreen() {
 
   const navigation = useNavigation<StackTypes>()
+
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
 
   const navigationHome = () => {
     navigation.navigate('CreatePost')
@@ -15,6 +20,28 @@ export default function LoginScreen() {
     navigation.navigate('Register')
   }
 
+  const login = async () => {
+    try {
+      const response = await api.post('/faxineirosLogin', {
+        email,
+        senha,
+      });
+
+      if (response.status === 200) {
+        const responseData = response.data;
+
+        console.log('Login bem-sucedido:', responseData);
+        navigationHome();
+      } else {
+        alert("Erro ao fazer Login, credenciais inválidas")
+        console.error('Erro ao efetuar login');
+      }
+    } catch (error) {
+      alert("Erro ao fazer Login, credenciais inválidas")
+      console.error('Erro ao efetuar login:', error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Clean Connect</Text>
@@ -22,73 +49,46 @@ export default function LoginScreen() {
         style={[styles.input, styles.inputWhiteBackground]}
         placeholder="Email"
         keyboardType="email-address"
-        autoCapitalize="none"
+        value={email}
+        onChangeText={setEmail}
+
+
+        
       />
       <TextInput
         style={[styles.input, styles.inputWhiteBackground]}
         placeholder="Senha"
         secureTextEntry
+        value={senha}
+        onChangeText={setSenha}
+
+
       />
-      <TouchableOpacity style={styles.forgotPassword}>
-        <Text>Esqueceu sua senha?</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.loginButton}>
-        <Text style={styles.loginButtonText}>Login</Text>
-      </TouchableOpacity>
+
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Ir para login"
+        />
+      </View>
 
 
-      <TouchableOpacity onPress={navigationHome} style={styles.loginButton}>
-        <Text style={styles.loginButtonText}>Ir para home</Text>
-      </TouchableOpacity>
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Logar"
+          onPress={login}
+        />
+      </View>
 
-      <TouchableOpacity onPress={navigationRegister} style={styles.loginButton}>
-        <Text style={styles.loginButtonText}>Ir para registro</Text>
-      </TouchableOpacity>
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Ir para Registro"
+          onPress={navigationRegister}
+        />
+      </View>
 
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-    backgroundColor: '#4CAF9D',
-
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  input: {
-    width: '100%',
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 10,
-    marginBottom: 10,
-  },
-  forgotPassword: {
-    alignSelf: 'flex-end',
-    marginBottom: 20,
-  },
-  loginButton: {
-    backgroundColor: 'blue',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 8,
-  },
-  loginButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
-  inputWhiteBackground: {
-    backgroundColor: 'white',
-  }
-});
+;
 
