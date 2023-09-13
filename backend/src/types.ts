@@ -3,6 +3,7 @@ export interface Faxineiro {
     email: string;
     nome: string;
     telefone: string;
+    senha:string;
   }
   
 export interface Postagem {
