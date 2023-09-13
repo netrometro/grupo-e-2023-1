@@ -73,7 +73,7 @@ const CreatePostScreen = () => {
   }
   
   const handleCreatePost = async () => {
-    if (cep === "") {
+    if (cep === "" || !/^\d{8}$/.test(cep)) {
       alert("Cep Inválido");
       setCep("");
       return

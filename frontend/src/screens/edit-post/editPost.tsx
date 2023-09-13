@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackTypes } from '../../routes/StackNavigation';
 import { Picker } from '@react-native-picker/picker';
 import { useScreenGuard } from '../../hooks/useScreenGuard';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const editPost = ({ route }: any) => {
   useScreenGuard('EditarPostagem');
@@ -130,6 +131,8 @@ const editPost = ({ route }: any) => {
   }, [postId]);
 
   return (
+    <ScrollView>
+
     <View>
             <View style={styles.container}>
             <Text style={styles.title}>Atualizar Postagem</Text>
@@ -234,6 +237,7 @@ const editPost = ({ route }: any) => {
       </View>
     </View>
     </View>
+    </ScrollView>
 
   );
 };

@@ -84,7 +84,6 @@ const contractPost = ({ route }: any) => {
 
   return (
     <ScrollView>
-    <View>
             <View style={styles.container}>
             <Text style={styles.title}>Contratar Serviço</Text>
       <TextInput
@@ -146,7 +145,6 @@ const contractPost = ({ route }: any) => {
           onPress={navigationHome}
         />
       </View>
-    </View>
     </View>
     </ScrollView>
   );
